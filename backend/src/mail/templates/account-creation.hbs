@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome to Worktime!</title>
+        <style>
+            body {
+                font-family: sans-serif, sans-serif;
+                font-size: 14px;
+                line-height: 1.5;
+                color: black;
+                background-color: #cfe7d8;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: normal;
+                text-align: center;
+                color: rgb(65 215 161);
+            }
+            p {
+                margin-top: 0;
+                margin-bottom: 20px;
+                color: black;
+            }
+            ul {
+                margin-top: 0;
+                margin-bottom: 20px;
+                padding-left: 20px;
+            }
+            li {
+                margin-bottom: 10px;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .logo {
+                display: block;
+                margin: 0 auto;
+                width: 60px;
+                height: auto;
+            }
+            .footer {
+                margin-top: 20px;
+                text-align: center;
+                font-size: 12px;
+                color: black;
+            }
+            a {
+                color: rgb(65 215 161);
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <img src="{{logoUrl}}"
+             alt="Worktime Logo"
+             class="logo"
+        >
+        <h1>Welcome to Worktime!</h1>
+        <p>Dear {{name}},</p>
+        <p>Thank you for creating an account with Worktime! We're excited to have you on board and look forward to helping you connect with friends, family, and colleagues around the world.</p>
+        <p>Your account has been successfully created. Please use your credentials to access your account at:</p>
+        <p>{{url}}</p>
+        <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:support@Worktime.com">contato.dtdevs@gmail.com</a>.</p>
+        <p>Best regards,</p>
+        <p>The Worktime Team</p>
+    </div>
+    <div class="footer">
+        This email was sent to {{name}} from Worktime. To unsubscribe, <a href="#">click here</a>.
+    </div>
+    </body>
+</html>
