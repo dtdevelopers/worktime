@@ -34,10 +34,12 @@ const Create = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            <h1>Cadastrar Funcionários</h1>
+            <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
+                Cadastrar Novo Funcionário
+            </span>
             <div>
                 <Form 
-                    handleCreate={handleCreate}
+                    handleAction={handleCreate}
                     isLoading={isLoading}
                     methods={methods}
                 />

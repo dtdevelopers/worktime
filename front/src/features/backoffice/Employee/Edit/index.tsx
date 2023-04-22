@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 const Edit = () => {
     const { id } = useParams();
-    
+
     const { data, refetch, isLoading } = useQuery(`employee${id}`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
@@ -24,16 +24,18 @@ const Edit = () => {
         defaultValues: data,
     });
 
-    const handleSubmit = useCallback((values: any) => {
-        console.log(values)
+    const handleEdit = useCallback((values: any) => {
+        console.log("🚀 ~ handleEdit ~ values:", values)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
-            <h1>Editar Funcionários</h1>
+            <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
+                Editar Funcionário
+            </span>
             <div>
                 <Form 
-                    handleSubmit={handleSubmit}
+                    handleAction={handleEdit}
                     isLoading={isLoading}
                     methods={methods}
                 />

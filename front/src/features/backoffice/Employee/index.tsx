@@ -57,7 +57,7 @@ const Employee = () => {
                                 {employee.isEmployee ? 'Sim' : 'Não'}    
                             </div>
                             <div>
-                                <button onClick={() => navigate('register-employee')}>Editar</button>
+                                <button onClick={() => navigate(`edit/${employee.id}`)}>Editar</button>
                             </div>
                             <div>
                                 <button onClick={() => handleDelete('register-employee')}>Excluir</button>

@@ -1,11 +1,11 @@
 import {FormProvider} from "react-hook-form";
 
 const Form = ({ 
-    handleCreate, 
+    handleAction, 
     isLoading,
     methods 
 }: {
-    handleCreate: (values: any) => void, 
+    handleAction: (values: any) => void, 
     isLoading: boolean,
     methods: any
 }) => {
@@ -13,11 +13,8 @@ const Form = ({
         <FormProvider {...methods}>
             <form
                 className='flex w-80 flex-col items-center justify-center'
-                onSubmit={methods.handleSubmit(handleCreate)}
+                onSubmit={methods.handleSubmit(handleAction)}
             >
-                <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                    Cadastrar Novo Usuário
-                </span>
                 <input
                     {...methods.register('name')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
