@@ -23,6 +23,7 @@ export class user1670427994562 implements MigrationInterface {
                     phone character varying(150),
                     password character varying(60),
                     monthly_workload character varying(60),
+                    is_employee boolean,
                     hire_date timestamp with time zone
                 );
             `,

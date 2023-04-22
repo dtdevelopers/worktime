@@ -63,7 +63,7 @@ export class UserRepository extends Repository<User> {
       .where('(user.email = :username)', {
         username,
       })
-      .orWhere('(user.username = :username)', {
+      .orWhere('(user.document = :username)', {
         username,
       })
       .getOne();
