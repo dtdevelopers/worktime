@@ -2,6 +2,7 @@ import {Page} from '../../types/page';
 import Home from "../../features/backoffice/Home";
 import Employee from "../../features/backoffice/Employee";
 import Create from "../../features/backoffice/Employee/Create/index";
+import Edit from '../../features/backoffice/Employee/Edit/index';
 
 
 const Pages: Page[] = [
@@ -28,7 +29,7 @@ const Pages: Page[] = [
       {
         title: 'create',
         route: 'edit/:id',
-        component: Create,
+        component: Edit,
       },
     ],
   },
