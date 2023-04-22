@@ -2,7 +2,8 @@ import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../services/user";
 import {Outlet, useNavigate} from 'react-router-dom';
-import { IUser } from "../../../types/user";
+import {IUser} from "../../../types/user";
+import {useCallback} from "react";
 
 const Employee = () => {
     const navigate = useNavigate();
@@ -16,6 +17,10 @@ const Employee = () => {
             toast.error(err.message);
         },
     });
+
+    const handleDelete = useCallback((values: any) => {
+        console.log(values)
+    }, [])
 
     return (
         <div className="flex flex-col gap-2">
@@ -53,6 +58,9 @@ const Employee = () => {
                             </div>
                             <div>
                                 <button onClick={() => navigate('register-employee')}>Editar</button>
+                            </div>
+                            <div>
+                                <button onClick={() => handleDelete('register-employee')}>Excluir</button>
                             </div>
                         </div>
                     ))}

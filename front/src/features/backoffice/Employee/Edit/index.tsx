@@ -4,9 +4,12 @@ import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import Form from "../Form/index";
+import { useParams } from "react-router-dom";
 
-const Create = () => {
-    const { data, refetch, isLoading } = useQuery(`employee`, () => UserService.findAll(), {
+const Edit = () => {
+    const { id } = useParams();
+    
+    const { data, refetch, isLoading } = useQuery(`employee${id}`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -18,26 +21,19 @@ const Create = () => {
     });
 
     const methods = useForm({
-        defaultValues: { 
-            name: '', 
-            document: '', 
-            birthdate: '',
-            email: '',
-            phone: '',
-            password: '' 
-        },
+        defaultValues: data,
     });
 
-    const handleCreate = useCallback((values: any) => {
+    const handleSubmit = useCallback((values: any) => {
         console.log(values)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
-            <h1>Cadastrar Funcionários</h1>
+            <h1>Editar Funcionários</h1>
             <div>
                 <Form 
-                    handleCreate={handleCreate}
+                    handleSubmit={handleSubmit}
                     isLoading={isLoading}
                     methods={methods}
                 />
@@ -46,4 +42,4 @@ const Create = () => {
     );
 }
 
-export default Create;
+export default Edit;

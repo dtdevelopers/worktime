@@ -25,6 +25,11 @@ const Pages: Page[] = [
         route: 'create',
         component: Create,
       },
+      {
+        title: 'create',
+        route: 'edit/:id',
+        component: Create,
+      },
     ],
   },
 ];
