@@ -7,6 +7,10 @@ import {toast, ToastContainer, Zoom} from 'react-toastify';
 import PrivateRoute from './PrivateRoute';
 import Login from "../features/public/Login";
 import api from "../services/api";
+import Home from "../features/backoffice/Home";
+import Create from "../features/backoffice/Employee/Create";
+import Edit from "../features/backoffice/Employee/Edit";
+import Employee from "../features/backoffice/Employee";
 
 export const queryClient = new QueryClient();
 
@@ -42,21 +46,27 @@ function Routes() {
           <ReactRoutes>
             {isAuthenticated ? (
               <Route path='/' element={<Layout />}>
-                {Pages.map((page) => (
                   <Route
-                    key={page.route}
-                    path={page.route}
-                    element={<PrivateRoute page={page} />}
+                      key={'home'}
+                      path={''}
+                      element={<Home />}
+                  />
+                  <Route
+                    key={'employee'}
+                    path={'employee'}
+                    element={<Employee />}
                   >
-                    {page.children?.map((child) => (
                       <Route
-                        key={child.route}
-                        path={child.route}
-                        element={<PrivateRoute page={child} />}
+                        key={'employee-create'}
+                        path={'create'}
+                        element={<Create />}
                       />
-                    ))}
+                      <Route
+                        key={'employee-edit'}
+                        path={'edit/:id'}
+                        element={<Edit />}
+                      />
                   </Route>
-                ))}
                   <Route path='*' element={<span>wildcard</span>} />
               </Route>
             ) : (
