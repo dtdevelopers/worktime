@@ -25,23 +25,18 @@ const useAuthStore = create<AuthState>()(
         user: null,
         token: null,
         authenticate: async (credentials: Credentials) => {
-            // set({isLoading: true});
-            // const data = await AuthService.authenticate(credentials).catch(() =>
-            //     set({isLoading: false})
-            // );
-            // if (data && data.token) {
-            //     set(() => ({
-            //         isAuthenticated: true,
-            //         user: data.user,
-            //         token: data.token
-            //     }));
-            // }
-            // set({isLoading: false});
-            set(() => ({
-                isAuthenticated: true,
-                user: 'maradona',
-                token: 'tchoken'
-            }));
+            set({isLoading: true});
+            const data = await AuthService.authenticate(credentials).catch(() =>
+                set({isLoading: false})
+            );
+            if (data && data.token) {
+                set(() => ({
+                    isAuthenticated: true,
+                    user: data.user,
+                    token: data.token
+                }));
+            }
+            set({isLoading: false});
         },
         logout: () => set(() => ({ isAuthenticated: false, user: null, token: null })),
     }),

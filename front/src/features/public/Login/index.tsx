@@ -4,7 +4,7 @@ import {useAuthStore} from "../../../store";
 const Login = () => {
     const { authenticate, isLoading } = useAuthStore();
     const methods = useForm({
-        defaultValues: { username: '', password: '' },
+        defaultValues: { username: 'admin@admin.com', password: '1234' },
     });
 
     return (
