@@ -78,21 +78,18 @@ export class ApiConfigService {
 
   get typeOrmConfig(): TypeOrmModuleOptions {
     const entities = [__dirname + '../../../models/*{.model,.entity}{.ts,.js}'];
-    const username = process.env.DATABASE_USERNAME;
-    const password = process.env.DATABASE_PASSWORD;
-    const host = process.env.DATABASE_HOST;
-    const port = +process.env.DATABASE_PORT;
-    const database = process.env.DATABASE_DATABASE;
+    const dbUrl = new URL(process.env.DATABASE_URL);
+    const routingId = dbUrl.searchParams.get('options');
+    dbUrl.searchParams.delete('options');
     return {
       entities,
       keepConnectionAlive: true,
-      username,
-      password,
-      host,
-      port,
-      database,
-      type: 'postgres',
-      ssl: false,
+      type: 'cockroachdb',
+      ssl: true,
+      url: dbUrl.toString(),
+      extra: {
+        options: routingId,
+      },
       migrations: [
         /*...*/
       ],

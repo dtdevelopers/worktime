@@ -11,20 +11,30 @@ import { Vacation } from './src/models/vacation.model';
 
 config();
 
-const username = process.env.DATABASE_USERNAME;
-const password = process.env.DATABASE_PASSWORD;
-const host = process.env.DATABASE_HOST;
-const port = +process.env.DATABASE_PORT;
-const database = process.env.DATABASE_DATABASE;
+// const username = process.env.DATABASE_USERNAME;
+// const password = process.env.DATABASE_PASSWORD;
+// const host = process.env.DATABASE_HOST;
+// const port = +process.env.DATABASE_PORT;
+// const database = process.env.DATABASE_DATABASE;
+
+const dbUrl = new URL(process.env.DATABASE_URL);
+const routingId = dbUrl.searchParams.get('options');
+dbUrl.searchParams.delete('options');
 
 export default new DataSource({
-  username,
-  password,
-  host,
-  port,
-  database,
-  type: 'postgres',
-  ssl: false,
+  // username,
+  // password,
+  // host,
+  // port,
+  // database,
+  // type: 'postgres',
+  // ssl: false,
+  type: 'cockroachdb',
+  ssl: true,
+  url: dbUrl.toString(),
+  extra: {
+    options: routingId,
+  },
   entities: [User, Event, Exception, Vacation],
   migrations: [
     user1670427994562,
