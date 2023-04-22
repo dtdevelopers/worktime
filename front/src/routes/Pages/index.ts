@@ -1,6 +1,7 @@
 import {Page} from '../../types/page';
 import Home from "../../features/backoffice/Home";
 import Employee from "../../features/backoffice/Employee";
+import Create from "../../features/backoffice/Employee/Create/index";
 
 
 const Pages: Page[] = [
@@ -17,22 +18,15 @@ const Pages: Page[] = [
     route: 'employee',
     component: Employee,
     authenticated: true,
+    showInMenu: false,
+    children: [
+      {
+        title: 'create',
+        route: 'create',
+        component: Create,
+      },
+    ],
   },
-  // {
-  //   icon: undefined,
-  //   title: 'Chat',
-  //   route: 'chat',
-  //   component: Chat,
-  //   authenticated: true,
-  //   showInMenu: false,
-  //   children: [
-  //     {
-  //       title: 'Chat',
-  //       route: ':id',
-  //       component: ChatWrapper,
-  //     },
-  //   ],
-  // },
 ];
 
 export default Pages;
