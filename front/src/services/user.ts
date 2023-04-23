@@ -17,18 +17,9 @@ export class UserService {
   //   return data || [];
   // }
 
-  static async findAll(): Promise<IUser[] | unknown> {
-    return new Promise((resolve) => {
-      resolve([
-        {
-          id: 1,
-          name: 'John Doe',
-          email: 'john@travolta.com',
-          document: '123456789',
-          phone: '123456789',
-        }
-      ] as IUser[]);
-    });
+  static async findAll(): Promise<IUser[]> {
+    const { data } = await api.get<IUser[]>('user');
+    return data as IUser[];
   }
 
   static async create(user: IUser): Promise<IUser | undefined> {

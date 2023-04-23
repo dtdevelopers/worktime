@@ -27,7 +27,7 @@ export class UserController {
     @Query() pageable: PageOptionsDTO,
     @Query() filters: UserFilterDTO,
   ): Promise<User[]> {
-    const page: PageDTO<User[]> = await this.userService.findAll(
+    const page: PageDTO<User[]> = await this.userService.findAllEmployees(
       pageable,
       filters,
     );

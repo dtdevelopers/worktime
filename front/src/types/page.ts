@@ -1,8 +1,5 @@
-import {ForwardRefExoticComponent, RefAttributes} from 'react';
-import { IconProps } from 'phosphor-react';
-
 export type Page = {
-  icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+  icon?: any;
   title: string;
   route: string;
   component: React.FC;

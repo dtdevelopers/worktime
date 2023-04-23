@@ -4,13 +4,13 @@ import {useAuthStore} from '../store';
 const url = import.meta.env.VITE_API_URL || '';
 
 const api = create({
-  baseURL: import.meta.env.MODE === 'development' ? `${url}/api` : 'prod api',
+  baseURL: import.meta.env.MODE === 'development' ? `${url}/api` : 'https://worktime.dtdevs.com/api',
   timeout: 30000,
 });
 
 api.addRequestTransform((request) => {
   const token = useAuthStore.getState().token;
-  if (token) {
+  if (token && request && request.headers) {
     request.headers.Authorization = `Bearer ${token}`;
   }
 });

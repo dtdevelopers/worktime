@@ -10,6 +10,9 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { JWTGuard } from './auth/guards/jwt.guard';
+import { ExceptionModule } from './exception/exception.module';
+import { VacationModule } from './vacation/vacation.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -40,6 +43,9 @@ import { JWTGuard } from './auth/guards/jwt.guard';
     }),
     AuthModule,
     UserModule,
+    ExceptionModule,
+    VacationModule,
+    EventModule,
     MailModule,
   ],
   providers: [

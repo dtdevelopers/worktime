@@ -21,7 +21,7 @@ const EmployeeEdit = () => {
     });
 
     const methods = useForm({
-        defaultValues: data,
+        defaultValues: data as any,
     });
 
     const handleEdit = useCallback((values: any) => {
