@@ -13,9 +13,9 @@ export class ExceptionService {
     return data as IException;
   }
 
-  static async findAll(): Promise<IException[] | unknown> {
+  static async findAll(): Promise<IException[]> {
     const { data } = await api.get<IException[]>('exception');
-    return data || [];
+    return data as IException[];
   }
 
   static async create(exception: IException): Promise<IException | undefined> {

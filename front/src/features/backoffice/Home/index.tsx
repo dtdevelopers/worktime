@@ -42,16 +42,18 @@ const Home = () => {
     const updateEmployeeExample = useCallback(async () => {
         await UserService.update(
             {
-                ...employees[0],
+                ...employees?.[0],
                 phone: Math.floor(Math.random() * 100).toString()
             } as IUser
         );
         await refetchEmployees();
     }, [employees])
 
-    const deleteEmployeeExample = async (id: number) => {
-        await UserService.delete(id);
-        await refetchEmployees();
+    const deleteEmployeeExample = async (id?: number) => {
+        if (id) {
+            await UserService.delete(id);
+            await refetchEmployees();
+        }
     }
 
     const createExceptionExample = async () => {
@@ -72,16 +74,18 @@ const Home = () => {
     const updateExceptionExample = useCallback(async () => {
         await ExceptionService.update(
             {
-                ...exceptions[0],
+                ...exceptions?.[0],
                 duration: Math.floor(Math.random() * 100)
             } as IException
         );
         await refetchExceptions();
     }, [exceptions])
 
-    const deleteExceptionExample = async (id: number) => {
-        await ExceptionService.delete(id);
-        await refetchExceptions();
+    const deleteExceptionExample = async (id?: number) => {
+        if (id) {
+            await ExceptionService.delete(id);
+            await refetchExceptions();
+        }
     }
 
     const createVacationExample = async () => {
@@ -98,7 +102,7 @@ const Home = () => {
     const updateVacationExample = useCallback(async () => {
         await VacationService.update(
             {
-                ...vacations[0],
+                ...vacations?.[0],
                 startDate: new Date(),
                 endDate: new Date(),
             } as IVacation
@@ -106,9 +110,11 @@ const Home = () => {
         await refetchVacations();
     }, [vacations])
 
-    const deleteVacationExample = async (id: number) => {
-        await VacationService.delete(id);
-        await refetchVacations();
+    const deleteVacationExample = async (id?: number) => {
+        if (id) {
+            await VacationService.delete(id);
+            await refetchVacations();
+        }
     }
 
     return (
@@ -159,7 +165,7 @@ const Home = () => {
                 </button>
                 {exceptions?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.occurrenceDate}</p>|
+                            <p>{d.occurrenceDate?.toDateString()}</p>|
                             <p>{d.duration}</p>|
                             <p>{d.durationType}</p>|
                             <p>{d.description}</p>|
@@ -190,8 +196,8 @@ const Home = () => {
                 </button>
                 {vacations?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.startDate}</p>|
-                            <p>{d.endDate}</p>|
+                            <p>{d.startDate?.toDateString()}</p>|
+                            <p>{d.endDate?.toDateString()}</p>|
                             <p>{d.user?.name}</p>|
                             <button
                                 onClick={() => deleteVacationExample(d.id)}
@@ -206,7 +212,7 @@ const Home = () => {
                 <h1>EVENTOS</h1>
                 {events?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.createdDate}</p>|
+                            <p>{d.createdDate?.toDateString()}</p>|
                             <p>{d.type}</p>|
                             <p>{d.user?.name}</p>
                         </div>

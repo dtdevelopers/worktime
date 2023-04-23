@@ -38,14 +38,14 @@ const Employee = () => {
                         <p>Email</p>
                     </div>
                     <div>
-                        <p>Funcionário?</p>    
+                        <p>Funcionário?</p>
                     </div>
                     <div>
                         <p>Ações</p>
                     </div>
                 </div>
                 <div>
-                    {data.map((employee: IUser) => (
+                    {data?.map((employee: IUser) => (
                         <div key={employee.id} className='flex flex-row'>
                             <div>
                                 <h2>{employee.name}</h2>
@@ -54,7 +54,7 @@ const Employee = () => {
                                 <p>{employee.email}</p>
                             </div>
                             <div>
-                                {employee.isEmployee ? 'Sim' : 'Não'}    
+                                {employee.isEmployee ? 'Sim' : 'Não'}
                             </div>
                             <div>
                                 <button onClick={() => navigate(`edit/${employee.id}`)}>Editar</button>

@@ -21,7 +21,7 @@ const Edit = () => {
     });
 
     const methods = useForm({
-        defaultValues: data,
+        defaultValues: data as any,
     });
 
     const handleEdit = useCallback((values: any) => {
@@ -34,7 +34,7 @@ const Edit = () => {
                 Editar Funcionário
             </span>
             <div>
-                <Form 
+                <Form
                     handleAction={handleEdit}
                     isLoading={isLoading}
                     methods={methods}

@@ -1,7 +1,7 @@
 import api from './api';
-import { ErrorResponse } from '../types/error';
-import { queryClient } from '../routes';
-import { IVacation } from '../types/vacation';
+import {ErrorResponse} from '../types/error';
+import {queryClient} from '../routes';
+import {IVacation} from '../types/vacation';
 
 export class VacationService {
 
@@ -14,9 +14,9 @@ export class VacationService {
     return data as IVacation;
   }
 
-  static async findAll(): Promise<IVacation[] | unknown> {
+  static async findAll(): Promise<IVacation[]> {
     const { data } = await api.get<IVacation[]>('vacation');
-    return data || [];
+    return data as IVacation[];
   }
 
   static async create(vacation: IVacation): Promise<IVacation | undefined> {

@@ -10,7 +10,7 @@ const api = create({
 
 api.addRequestTransform((request) => {
   const token = useAuthStore.getState().token;
-  if (token) {
+  if (token && request && request.headers) {
     request.headers.Authorization = `Bearer ${token}`;
   }
 });

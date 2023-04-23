@@ -14,9 +14,9 @@ export class EventService {
     return data as IEvent;
   }
 
-  static async findAll(): Promise<IEvent[] | unknown> {
+  static async findAll(): Promise<IEvent[]> {
     const { data } = await api.get<IEvent[]>('event');
-    return data || [];
+    return data as IEvent[];
   }
 
   static async create(event: IEvent): Promise<IEvent | undefined> {

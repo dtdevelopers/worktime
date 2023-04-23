@@ -17,9 +17,9 @@ export class UserService {
   //   return data || [];
   // }
 
-  static async findAll(): Promise<IUser[] | unknown> {
+  static async findAll(): Promise<IUser[]> {
     const { data } = await api.get<IUser[]>('user');
-    return data || [];
+    return data as IUser[];
   }
 
   static async create(user: IUser): Promise<IUser | undefined> {
