@@ -1,6 +1,5 @@
 import {useQuery} from "react-query";
 import {UserService} from "../../../services/user";
-import {toast} from "react-toastify";
 import {IUser} from "../../../types/user";
 import {useCallback} from "react";
 import {Trash} from "@phosphor-icons/react";
@@ -9,6 +8,7 @@ import {IException} from "../../../types/exception";
 import {VacationService} from "../../../services/vacation";
 import {IVacation} from "../../../types/vacation";
 import {EventService} from "../../../services/event";
+import { IEvent } from "../../../types/event";
 
 const Home = () => {
     const { data: employees, refetch: refetchEmployees } = useQuery('employee-list', () => UserService.findAll(), {
@@ -47,7 +47,7 @@ const Home = () => {
             } as IUser
         );
         await refetchEmployees();
-    }, [employees])
+    }, [employees, refetchEmployees])
 
     const deleteEmployeeExample = async (id?: number) => {
         if (id) {
@@ -79,7 +79,7 @@ const Home = () => {
             } as IException
         );
         await refetchExceptions();
-    }, [exceptions])
+    }, [exceptions, refetchExceptions])
 
     const deleteExceptionExample = async (id?: number) => {
         if (id) {
@@ -108,7 +108,7 @@ const Home = () => {
             } as IVacation
         );
         await refetchVacations();
-    }, [vacations])
+    }, [refetchVacations, vacations])
 
     const deleteVacationExample = async (id?: number) => {
         if (id) {
@@ -120,24 +120,25 @@ const Home = () => {
     return (
         <div className="flex flex-col gap-2">
             <div className="flex flex-col my-6">
-                <h1>FUNCIONARIOS</h1>
+                <h1>FUNCIONÁRIOS</h1>
                 <button
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
                     onClick={createEmployeeExample}
                 >
                     Criar funcionário
                 </button>
-                <button
-                    className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={updateEmployeeExample}
-                >
-                    Atualizar funcionário
-                </button>
-                {employees?.map(d => (
+                {employees?.map((d: IUser) => (
                         <div key={d.id} className="flex gap-2">
                             <p>{d.name}</p>|
                             <p>{d.email}</p>|
                             <p>{d.phone}</p>
+                            <p>{d.isEmployee ? 'Sim' : 'Não'}</p>
+                            <button
+                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                                onClick={updateEmployeeExample}
+                            >
+                                Atualizar
+                            </button>
                             {d.id !== 2 &&
                                 <button
                                     onClick={() => deleteEmployeeExample(d.id)}
@@ -157,13 +158,7 @@ const Home = () => {
                 >
                     Criar exceção
                 </button>
-                <button
-                    className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={updateExceptionExample}
-                >
-                    Atualizar exceção
-                </button>
-                {exceptions?.map(d => (
+                {exceptions?.map((d: IException) => (
                         <div key={d.id} className="flex gap-2">
                             <p>{d.occurrenceDate?.toString()}</p>|
                             <p>{d.duration}</p>|
@@ -171,6 +166,12 @@ const Home = () => {
                             <p>{d.description}</p>|
                             <p>{d.isResolved}</p>|
                             <p>{d.user?.name}</p>|
+                            <button
+                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                                onClick={updateExceptionExample}
+                            >
+                                Atualizar
+                            </button>
                             <button
                                 onClick={() => deleteExceptionExample(d.id)}
                             >
@@ -181,24 +182,24 @@ const Home = () => {
                 )}
             </div>
             <div className="flex flex-col my-6">
-                <h1>FERIAS</h1>
+                <h1>FÉRIAS</h1>
                 <button
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
                     onClick={createVacationExample}
                 >
-                    Criar ferias
+                    Criar férias
                 </button>
-                <button
-                    className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={updateVacationExample}
-                >
-                    Atualizar ferias
-                </button>
-                {vacations?.map(d => (
+                {vacations?.map((d: IVacation) => (
                         <div key={d.id} className="flex gap-2">
                             <p>{d.startDate?.toString()}</p>|
                             <p>{d.endDate?.toString()}</p>|
                             <p>{d.user?.name}</p>|
+                            <button
+                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                                onClick={updateVacationExample}
+                            >
+                                Atualizar
+                            </button>
                             <button
                                 onClick={() => deleteVacationExample(d.id)}
                             >
@@ -210,11 +211,28 @@ const Home = () => {
             </div>
             <div className="flex flex-col my-6">
                 <h1>EVENTOS</h1>
-                {events?.map(d => (
+                <button
+                    className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                    onClick={() => {console.log(d.id)}}
+                >
+                    Criar evento
+                </button>
+                {events?.map((d: IEvent) => (
                         <div key={d.id} className="flex gap-2">
                             <p>{d.createdDate?.toString()}</p>|
                             <p>{d.type}</p>|
                             <p>{d.user?.name}</p>
+                            <button
+                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                                onClick={() => {console.log(d.id)}}
+                            >
+                                Atualizar
+                            </button>
+                            <button
+                                onClick={() => {console.log(d.id)}}
+                            >
+                                <Trash size={20} />
+                            </button>
                         </div>
                     )
                 )}

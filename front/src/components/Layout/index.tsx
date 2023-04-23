@@ -6,10 +6,18 @@ const Layout = () => {
     const navigate = useNavigate();
     return (
         <div className="flex h-full flex-col">
-            <h1>layout header</h1>
+            <div className="flex flex-row" style={{justifyContent: 'space-between'}}>
+                <button 
+                    className="bg-primary text-gray-300 px-4 py-2 font-bold" 
+                    onClick={() => navigate('/')}
+                >
+                    Home
+                </button>
+                <div>
+                    <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={logout}>Sair</button>
+                </div>
+            </div>
             <Outlet />
-            <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={() => navigate('employee')}>Usuários</button>
-            <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={logout}>Sair</button>
         </div>
     );
 }
