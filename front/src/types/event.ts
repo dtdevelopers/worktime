@@ -1,9 +1,9 @@
 import {IUser} from "./user";
 
-export interface IVacation {
+export interface IEvent {
   id: number | undefined;
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  createdDate: Date | undefined;
+  type: string | undefined;
   user: IUser;
 }
 

@@ -1,45 +1,46 @@
 import api from './api';
 import { ErrorResponse } from '../types/error';
 import { queryClient } from '../routes';
-import { IException } from '../types/exception';
+import { IVacation } from '../types/vacation';
 
-export class ExceptionService {
-  static async find(id: number): Promise<IException | undefined> {
+export class VacationService {
+
+  static async find(id: number): Promise<IVacation | undefined> {
     const { data, ok } = await api
-        .get<IException | ErrorResponse>(`exception/${id}`);
+        .get<IVacation | ErrorResponse>(`vacation/${id}`);
     if (!ok) {
       throw new Error((data as ErrorResponse).message);
     }
-    return data as IException;
+    return data as IVacation;
   }
 
-  static async findAll(): Promise<IException[] | unknown> {
-    const { data } = await api.get<IException[]>('exception');
+  static async findAll(): Promise<IVacation[] | unknown> {
+    const { data } = await api.get<IVacation[]>('vacation');
     return data || [];
   }
 
-  static async create(exception: IException): Promise<IException | undefined> {
+  static async create(vacation: IVacation): Promise<IVacation | undefined> {
     const { data, ok } = await api
-        .post<IException | ErrorResponse>('exception', {
-      ...exception,
+        .post<IVacation | ErrorResponse>('vacation', {
+      ...vacation,
     });
     if (!ok) {
       throw new Error((data as ErrorResponse).message);
     }
-    return data as IException;
+    return data as IVacation;
   }
 
-  static async update(exception: Partial<IException>): Promise<IException | undefined> {
-    const { data, ok } = await api.put<IException | ErrorResponse>(`exception/${exception.id}`, exception);
+  static async update(vacation: Partial<IVacation>): Promise<IVacation | undefined> {
+    const { data, ok } = await api.put<IVacation | ErrorResponse>(`vacation/${vacation.id}`, vacation);
     if (!ok) {
       throw new Error((data as ErrorResponse).message);
     }
-    await queryClient.invalidateQueries(`exception-${exception.id}`);
-    return data as IException;
+    await queryClient.invalidateQueries(`vacation-${vacation.id}`);
+    return data as IVacation;
   }
 
   static async delete(id: number): Promise<void> {
-    const { data, ok } = await api.delete(`exception/${id}`);
+    const { data, ok } = await api.delete(`vacation/${id}`);
     if (!ok) {
       throw new Error((data as ErrorResponse).message);
     }

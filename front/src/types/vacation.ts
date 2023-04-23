@@ -1,13 +1,9 @@
 import {IUser} from "./user";
 
-export interface IException {
+export interface IVacation {
   id: number | undefined;
-  description: string;
-  duration: number | undefined;
-  durationType: string | undefined;
-  occurrenceDate: Date | undefined;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
   user: IUser;
-  isResolved: boolean | undefined;
-  fileId: string | undefined;
 }
 
