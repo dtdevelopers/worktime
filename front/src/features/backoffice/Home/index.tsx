@@ -165,7 +165,7 @@ const Home = () => {
                 </button>
                 {exceptions?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.occurrenceDate?.toDateString()}</p>|
+                            <p>{d.occurrenceDate?.toString()}</p>|
                             <p>{d.duration}</p>|
                             <p>{d.durationType}</p>|
                             <p>{d.description}</p>|
@@ -196,8 +196,8 @@ const Home = () => {
                 </button>
                 {vacations?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.startDate?.toDateString()}</p>|
-                            <p>{d.endDate?.toDateString()}</p>|
+                            <p>{d.startDate?.toString()}</p>|
+                            <p>{d.endDate?.toString()}</p>|
                             <p>{d.user?.name}</p>|
                             <button
                                 onClick={() => deleteVacationExample(d.id)}
@@ -212,7 +212,7 @@ const Home = () => {
                 <h1>EVENTOS</h1>
                 {events?.map(d => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.createdDate?.toDateString()}</p>|
+                            <p>{d.createdDate?.toString()}</p>|
                             <p>{d.type}</p>|
                             <p>{d.user?.name}</p>
                         </div>
