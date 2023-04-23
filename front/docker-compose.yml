@@ -1,8 +1,8 @@
 version: '3.1'
 services:
   dtdevs:
-    container_name: chatnel-fe
-    image: dtdevss/chatnel-fe
+    container_name: worktime-fe
+    image: dtdevss/worktime-fe
     env_file:
       - .env.production
     restart: 'always'
