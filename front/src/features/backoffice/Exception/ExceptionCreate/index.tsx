@@ -3,14 +3,10 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
-import VacationForm, { TFormEvent } from "../EventForm/index";
-import { useParams } from "react-router-dom";
-import { IEvent } from "../../../../types/event";
+import ExceptionForm, { TFormException } from "../ExceptionForm/index";
 
-const VacationEdit = () => {
-    const { id } = useParams();
-
-    const { data, isLoading } = useQuery(`event-${id}`, () => UserService.findAll(), {
+const ExceptionCreate = () => {
+    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -22,29 +18,36 @@ const VacationEdit = () => {
     });
 
     const methods = useForm({
-        defaultValues: data as IEvent,
+        defaultValues: { 
+            description: '',
+            duration: 0,
+            durationType: '',
+            occurrenceDate: undefined,
+            idEmployee: 0,
+            fileId: ''
+        },
     });
 
-    const handleEdit = useCallback((values: TFormEvent) => {
-        console.log("🚀 ~ handleEdit ~ values:", values)
+    const handleCreate = useCallback((values: TFormException) => {
+        console.log(values)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                Editar Evento
+                Cadastrar Nova Férias
             </span>
             <div>
-                <VacationForm 
-                    handleAction={handleEdit}
+                <ExceptionForm 
+                    handleAction={handleCreate}
                     isLoading={isLoading}
-                    isEditing={true}
                     methods={methods}
                     employees={data}
+                    durationTypes={[]}
                 />
             </div>
         </div>
     );
 }
 
-export default VacationEdit;
+export default ExceptionCreate;

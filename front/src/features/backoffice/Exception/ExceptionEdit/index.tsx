@@ -3,14 +3,14 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
-import VacationForm, { TFormEvent } from "../EventForm/index";
+import VacationForm, { TFormException } from "../ExceptionForm/index";
 import { useParams } from "react-router-dom";
-import { IEvent } from "../../../../types/event";
+import { IException } from "../../../../types/exception";
 
-const VacationEdit = () => {
+const ExceptionEdit = () => {
     const { id } = useParams();
 
-    const { data, isLoading } = useQuery(`event-${id}`, () => UserService.findAll(), {
+    const { data, isLoading } = useQuery(`exception-${id}`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -22,17 +22,17 @@ const VacationEdit = () => {
     });
 
     const methods = useForm({
-        defaultValues: data as IEvent,
+        defaultValues: data as IException,
     });
 
-    const handleEdit = useCallback((values: TFormEvent) => {
+    const handleEdit = useCallback((values: TFormException) => {
         console.log("🚀 ~ handleEdit ~ values:", values)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                Editar Evento
+                Editar Férias
             </span>
             <div>
                 <VacationForm 
@@ -41,10 +41,11 @@ const VacationEdit = () => {
                     isEditing={true}
                     methods={methods}
                     employees={data}
+                    durationTypes={[]}
                 />
             </div>
         </div>
     );
 }
 
-export default VacationEdit;
+export default ExceptionEdit;
