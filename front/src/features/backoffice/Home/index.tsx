@@ -31,27 +31,6 @@ const Home = () => {
         initialData: [],
     });
 
-    const createEmployeeExample = async () => {
-        await UserService.create({
-            name: 'Employee Example',
-            email: 'example@example.com',
-            document: '12345678910',
-            phone: '12345678910',
-            isEmployee: true
-        } as IUser);
-        await refetchEmployees();
-    }
-
-    const updateEmployeeExample = useCallback(async () => {
-        await UserService.update(
-            {
-                ...employees?.[0],
-                phone: Math.floor(Math.random() * 100).toString()
-            } as IUser
-        );
-        await refetchEmployees();
-    }, [employees, refetchEmployees])
-
     const deleteEmployee = async (id?: number) => {
         if (id) {
             await UserService.delete(id);

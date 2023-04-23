@@ -9,9 +9,9 @@ import { IEvent } from "../../../../types/event";
 import { EventService } from "../../../../services/event";
 
 const EventEdit = () => {
-    const { id } = useParams();
+    const { id }: { id: string | undefined} = useParams();
 
-    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
+    const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -19,20 +19,35 @@ const EventEdit = () => {
         },
         onError: (err: Error) => {
             toast.error(err.message);
-        },
+        }
     });
 
-    const { event } = useQuery(`event-${id}`, () => EventService.find(id), {
+    const { data: event } = useQuery(`event-${id}`, () => EventService.find(Number(id)), {
         refetchOnWindowFocus: false,
         initialData: [],
+        onSuccess: (_data: IEvent) => {
+            console.log(_data);
+        },
+        onError: (err: Error) => {
+            toast.error(err.message);
+        }
     });
 
     const methods = useForm({
         defaultValues: event as IEvent,
     });
 
-    const handleEdit = useCallback((values: TFormEvent) => {
-        console.log("🚀 ~ handleEdit ~ values:", values)
+    const handleEdit = useCallback(async (values: TFormEvent) => {
+        const { createdDate, type, idEmployee } = values
+        await EventService.update(
+            {
+                createdDate,
+                type,
+                user: {
+                    id: Number(idEmployee)
+                }
+            }
+        );
     }, [])
 
     return (
@@ -46,7 +61,7 @@ const EventEdit = () => {
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={data}
+                    employees={employees}
                 />
             </div>
         </div>

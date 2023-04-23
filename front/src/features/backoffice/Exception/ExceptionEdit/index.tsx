@@ -6,13 +6,12 @@ import {useCallback} from "react";
 import VacationForm, { TFormException } from "../ExceptionForm/index";
 import { useParams } from "react-router-dom";
 import { IException } from "../../../../types/exception";
-import { EventService } from "../../../../services/event";
 import { ExceptionService } from "../../../../services/exception";
 
 const ExceptionEdit = () => {
-    const { id } = useParams();
+    const { id }: { id: string | undefined} = useParams();
 
-    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
+    const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -23,9 +22,15 @@ const ExceptionEdit = () => {
         },
     });
 
-    const { exception } = useQuery(`exception-${id}`, () => ExceptionService.find(id), {
+    const { data: exception } = useQuery(`exception-${id}`, () => ExceptionService.find(Number(id)), {
         refetchOnWindowFocus: false,
         initialData: [],
+        onSuccess: (_data: IException) => {
+            console.log(_data);
+        },
+        onError: (err: Error) => {
+            toast.error(err.message);
+        }
     });
 
     const methods = useForm({
@@ -58,7 +63,7 @@ const ExceptionEdit = () => {
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={data}
+                    employees={employees}
                     durationTypes={[]}
                 />
             </div>

@@ -2,21 +2,11 @@ import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
-import {useCallback} from "react";
-import EmployeePersonalForm from "../Form/index";
+import {useCallback, useState} from "react";
+import EmployeeForm, { TFormUser } from "../EmployeeForm/index";
 
 const EmployeeCreate = () => {
-    const { data, refetch, isLoading } = useQuery(`employee`, () => UserService.findAll(), {
-        refetchOnWindowFocus: false,
-        initialData: [],
-        onSuccess: (_data) => {
-            console.log(_data);
-        },
-        onError: (err: Error) => {
-            toast.error(err.message);
-        },
-    });
-
+    const [loading, setLoading] = useState(false)
     const methods = useForm({
         defaultValues: { 
             name: '', 
@@ -28,8 +18,23 @@ const EmployeeCreate = () => {
         },
     });
 
-    const handleCreate = useCallback((values: any) => {
-        console.log(values)
+    const handleCreateEmployee = useCallback(async (values: TFormUser) => {
+        const { name, document, birthdate, email, phone, password } = values
+        try {
+            setLoading(true)
+            await UserService.create({
+                name,
+                document,
+                birthdate,
+                email,
+                phone,
+                password
+            });
+        } catch (error) {
+            toast.error('Erro ao Cadastrar Novo Funcionário!')
+        } finally {
+            setLoading(false)
+        }
     }, [])
 
     return (
@@ -38,9 +43,9 @@ const EmployeeCreate = () => {
                 Cadastrar Novo Funcionário
             </span>
             <div>
-                <EmployeePersonalForm 
-                    handleAction={handleCreate}
-                    isLoading={isLoading}
+                <EmployeeForm 
+                    handleAction={handleCreateEmployee}
+                    isLoading={loading}
                     methods={methods}
                 />
             </div>

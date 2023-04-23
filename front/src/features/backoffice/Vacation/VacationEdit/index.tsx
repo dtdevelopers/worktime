@@ -9,9 +9,9 @@ import {VacationService} from "../../../../services/vacation";
 import { IVacation } from "../../../../types/vacation";
 
 const VacationEdit = () => {
-    const { id } = useParams();
+    const { id }: { id: string | undefined} = useParams();
 
-    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
+    const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -19,19 +19,25 @@ const VacationEdit = () => {
         },
         onError: (err: Error) => {
             toast.error(err.message);
-        },
+        }
     });
 
-    const { vacation } = useQuery(`event-${id}`, () => VacationService.find(id), {
+    const { data: vacation } = useQuery(`event-${id}`, () => VacationService.find(Number(id)), {
         refetchOnWindowFocus: false,
         initialData: [],
+        onSuccess: (_data: IVacation) => {
+            console.log(_data);
+        },
+        onError: (err: Error) => {
+            toast.error(err.message);
+        }
     });
 
     const methods = useForm({
         defaultValues: vacation as IVacation,
     });
 
-    const handleEdit = useCallback(async (values: TFormVacation) => {
+    const handleEditVacation = useCallback(async (values: TFormVacation) => {
         const { startDate, endDate, idEmployee } = values
         await VacationService.update(
             {
@@ -52,11 +58,11 @@ const VacationEdit = () => {
             </span>
             <div>
                 <VacationForm 
-                    handleAction={handleEdit}
+                    handleAction={handleEditVacation}
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={data}
+                    employees={employees}
                 />
             </div>
         </div>

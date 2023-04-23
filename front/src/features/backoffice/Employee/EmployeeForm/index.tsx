@@ -1,13 +1,24 @@
 import {FormProvider} from "react-hook-form";
 
-const EmployeePersonalForm = ({ 
+export type TFormUser = {
+    name: string;
+    document: string;
+    birthdate: Date;
+    email: string;
+    phone: string;
+    password: string;
+}
+
+const EmployeeForm = ({ 
     handleAction, 
     isLoading,
-    methods 
+    methods,
+    isEditing = false
 }: {
-    handleAction: (values: any) => void, 
+    handleAction: (values: TFormUser) => void, 
     isLoading: boolean,
-    methods: any
+    methods: any,
+    isEditing?: boolean
 }) => {
     return (
         <FormProvider {...methods}>
@@ -51,11 +62,11 @@ const EmployeePersonalForm = ({
                     type='submit'
                     className='flex justify-center my-6 w-full rounded-md bg-secondary py-3 text-sm font-medium leading-5 text-white'
                 >
-                    Cadastrar
+                    {isEditing ? 'Atualizar' : 'Cadastrar'}
                 </button>
             </form>
         </FormProvider>
     );
 }
 
-export default EmployeePersonalForm;
+export default EmployeeForm;
