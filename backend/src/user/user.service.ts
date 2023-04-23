@@ -31,6 +31,14 @@ export class UserService {
     return await this.userRepository.findAll(pagination, filters);
   }
 
+  async findAllEmployees(
+    pageable: PageOptionsDTO,
+    filters: UserFilterDTO,
+  ): Promise<PageDTO<User[]>> {
+    const pagination = PaginationUtil.generatePagination(pageable);
+    return await this.userRepository.findAllEmployees(pagination, filters);
+  }
+
   async findOne(id: number): Promise<User | null> {
     const user: User = await this.userRepository.findById(id);
     if (!user) {
@@ -43,25 +51,26 @@ export class UserService {
     if (user.password) {
       user.password = await this.encryptPassword(user.password);
     }
+    await this.userRepository.saveNew(user);
   }
 
   public async update(user: User, id: number, token: string): Promise<User> {
-    const userFromToken = await this.authService.getUserFromToken(token);
-    if (userFromToken.id !== id) {
-      throw new BadRequestException('You can only update your own user');
-    }
-    if (user.passwordConfirmation) {
-      const isPasswordConfirmed = await this.validateCredentials(
-        userFromToken,
-        user.passwordConfirmation,
-      );
-      if (!isPasswordConfirmed) {
-        throw new BadRequestException('Password is not confirmed');
-      }
-      user.password = await this.encryptPassword(user.password);
-    } else {
-      user.password = undefined;
-    }
+    // const userFromToken = await this.authService.getUserFromToken(token);
+    // if (userFromToken.id !== id) {
+    //   throw new BadRequestException('You can only update your own user');
+    // }
+    // if (user.passwordConfirmation) {
+    //   const isPasswordConfirmed = await this.validateCredentials(
+    //     userFromToken,
+    //     user.passwordConfirmation,
+    //   );
+    //   if (!isPasswordConfirmed) {
+    //     throw new BadRequestException('Password is not confirmed');
+    //   }
+    //   user.password = await this.encryptPassword(user.password);
+    // } else {
+    user.password = undefined;
+    // }
     user.passwordConfirmation = undefined;
     const updateResult = await this.userRepository.update(id, user);
 

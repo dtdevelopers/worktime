@@ -37,9 +37,6 @@ export class Exception {
   })
   occurrenceDate: Date | null;
 
-  @Column('timestamp with time zone', { name: 'end_date', nullable: false })
-  endDate: Date | null;
-
   @Column('boolean', { name: 'is_resolved', nullable: true })
   isResolved: boolean | null;
 

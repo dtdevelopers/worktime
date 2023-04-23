@@ -24,7 +24,33 @@ export class UserRepository extends Repository<User> {
     }
 
     const [data, total] = await query
-      .orderBy('user.username', 'ASC')
+      .orderBy('user.name', 'ASC')
+      .skip(pagination.skip)
+      .take(pagination.take)
+      .getManyAndCount();
+    return { data, total };
+  }
+
+  public async findAllEmployees(
+    pagination,
+    filters,
+  ): Promise<PageDTO<User[]> | null> {
+    const query = this.createQueryBuilder('user');
+    if ('username' in filters) {
+      query.andWhere(`UPPER(username) LIKE UPPER('%${filters.username}%')`);
+    }
+    if ('email' in filters) {
+      query.andWhere(`UPPER(email) LIKE UPPER('%${filters.email}%')`);
+    }
+    if ('query' in filters) {
+      query.andWhere(
+        `UPPER(email) LIKE UPPER('%${filters.query}%') OR UPPER(username) LIKE UPPER('%${filters.query}%')`,
+      );
+    }
+    query.andWhere('user.is_employee = :isEmployee', { isEmployee: true });
+
+    const [data, total] = await query
+      .orderBy('user.name', 'ASC')
       .skip(pagination.skip)
       .take(pagination.take)
       .getManyAndCount();
