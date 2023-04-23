@@ -3,11 +3,11 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
-import VacationForm, { TFormEvent } from "../EventForm/index";
+import EventForm, { TFormEvent } from "../EventForm/index";
 import { useParams } from "react-router-dom";
 import { IEvent } from "../../../../types/event";
 
-const VacationEdit = () => {
+const EventEdit = () => {
     const { id } = useParams();
 
     const { data, isLoading } = useQuery(`event-${id}`, () => UserService.findAll(), {
@@ -35,7 +35,7 @@ const VacationEdit = () => {
                 Editar Evento
             </span>
             <div>
-                <VacationForm 
+                <EventForm 
                     handleAction={handleEdit}
                     isLoading={isLoading}
                     isEditing={true}
@@ -47,4 +47,4 @@ const VacationEdit = () => {
     );
 }
 
-export default VacationEdit;
+export default EventEdit;

@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import VacationForm, { TFormVacation } from "../VacationForm/index";
 import { useParams } from "react-router-dom";
+import {VacationService} from "../../../../services/vacation";
 import { IVacation } from "../../../../types/vacation";
 
 const VacationEdit = () => {
@@ -25,8 +26,19 @@ const VacationEdit = () => {
         defaultValues: data as IVacation,
     });
 
-    const handleEdit = useCallback((values: TFormVacation) => {
+    const handleEdit = useCallback(async (values: TFormVacation) => {
         console.log("🚀 ~ handleEdit ~ values:", values)
+        const { startDate, endDate, idEmployee } = values
+        await VacationService.update(
+            {
+                startDate,
+                endDate,
+                user: {
+                    id: idEmployee
+                }
+            }
+        );
+        toast.success('Férias atualizada com sucesso!');
     }, [])
 
     return (

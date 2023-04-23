@@ -26,19 +26,24 @@ const EventForm = ({
                 className='flex w-80 flex-col items-center justify-center'
                 onSubmit={methods.handleSubmit(handleAction)}
             >
+                <label>Funcionário:</label>
                 <select
                     name="idEmployee" 
                     {...methods.register('idEmployee')}
+                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
                     {employees?.map((employee) => <option value={employee.id}>{employee.name}</option>)}
                 </select>
+                <label>Data:</label>
                 <input
                     type={'date'}
                     {...methods.register('createdDate')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
+                <label>Tipo:</label>
                 <input
                     {...methods.register('type')}
+                    placeholder="Digite um tipo"
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
                 <button

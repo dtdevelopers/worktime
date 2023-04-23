@@ -12,6 +12,12 @@ import Employee from "../features/backoffice/Employee";
 import EmployeeCreate from '../features/backoffice/Employee/EmployeeCreate/index';
 import EmployeeEdit from '../features/backoffice/Employee/EmployeeEdit/index';
 import EmployeeJourneyControl from '../features/backoffice/Employee/EmployeeJourneyControl/index';
+import EventCreate from '../features/backoffice/Event/EventCreate/index';
+import EventEdit from '../features/backoffice/Event/EventEdit/index';
+import VacationEdit from '../features/backoffice/Vacation/VacationEdit/index';
+import VacationCreate from '../features/backoffice/Vacation/VacationCreate/index';
+import ExceptionCreate from '../features/backoffice/Exception/ExceptionCreate/index';
+import ExceptionEdit from '../features/backoffice/Exception/ExceptionEdit/index';
 
 export const queryClient = new QueryClient();
 
@@ -52,27 +58,46 @@ function Routes() {
                       path={''}
                       element={<Home />}
                   />
+<Route
+                    key={'employee-create'}
+                    path={'employee/create'}
+                    element={<EmployeeCreate />}
+                  />
                   <Route
-                    key={'employee'}
-                    path={'employee'}
-                    element={<Employee />}
-                  >
-                      <Route
-                        key={'employee-create'}
-                        path={'create'}
-                        element={<EmployeeCreate />}
-                      />
-                      <Route
-                        key={'employee-edit'}
-                        path={'edit/:id'}
-                        element={<EmployeeEdit />}
-                      />
-                      <Route
-                        key={'employee-journey-control'}
-                        path={'journey-control/:id'}
-                        element={<EmployeeJourneyControl />}
-                      />
-                  </Route>
+                    key={'employee-edit'}
+                    path={'employee/edit/:id'}
+                    element={<EmployeeEdit />}
+                  />
+                  <Route
+                    key={'event-create'}
+                    path={'event/create'}
+                    element={<EventCreate />}
+                  />
+                  <Route
+                    key={'event-edit'}
+                    path={'event/edit/:id'}
+                    element={<EventEdit />}
+                  />
+                  <Route
+                    key={'exception-create'}
+                    path={'exception/create'}
+                    element={<ExceptionCreate />}
+                  />
+                  <Route
+                    key={'exception-edit'}
+                    path={'exception/edit/:id'}
+                    element={<ExceptionEdit />}
+                  />
+                  <Route
+                    key={'vacation-create'}
+                    path={'vacation/create'}
+                    element={<VacationCreate />}
+                  />
+                  <Route
+                    key={'vacation-edit'}
+                    path={'vacation/edit/:id'}
+                    element={<VacationEdit />}
+                  />
                   <Route path='*' element={<span>wildcard</span>} />
               </Route>
             ) : (

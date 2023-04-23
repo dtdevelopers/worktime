@@ -3,6 +3,7 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
+import {VacationService} from "../../../../services/vacation";
 import VacationForm, { TFormVacation } from "../VacationForm/index";
 
 const VacationCreate = () => {
@@ -25,8 +26,13 @@ const VacationCreate = () => {
         },
     });
 
-    const handleCreate = useCallback((values: TFormVacation) => {
-        console.log(values)
+    const handleCreateVacation = useCallback(async (values: TFormVacation) => {
+        await VacationService.create({
+            ...values,
+            user: {
+                id: Number(values.idEmployee)
+            },
+        });
     }, [])
 
     return (
@@ -36,7 +42,7 @@ const VacationCreate = () => {
             </span>
             <div>
                 <VacationForm 
-                    handleAction={handleCreate}
+                    handleAction={handleCreateVacation}
                     isLoading={isLoading}
                     methods={methods}
                     employees={data}

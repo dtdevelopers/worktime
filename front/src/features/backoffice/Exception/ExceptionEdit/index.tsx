@@ -32,7 +32,7 @@ const ExceptionEdit = () => {
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                Editar Férias
+                Editar Exceção
             </span>
             <div>
                 <VacationForm 

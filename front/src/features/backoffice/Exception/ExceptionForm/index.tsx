@@ -31,36 +31,40 @@ const ExceptionForm = ({
                 className='flex w-80 flex-col items-center justify-center'
                 onSubmit={methods.handleSubmit(handleAction)}
             >
+                <label>Funcionário:</label>
                 <select 
                     name="idEmployee" 
                     {...methods.register('idEmployee')}
+                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
                     {employees?.map((employee) => <option value={employee.id}>{employee.name}</option>)}
                 </select>
+                <label>Descrição:</label>
                 <input
                     {...methods.register('description')}
+                    placeholder="Digite uma descrição"
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
+                <label>Data:</label>
                 <input
                     type={'date'}
                     {...methods.register('occurrenceDate')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
+                <label>Duração:</label>
                 <input
                     type={'number'}
                     {...methods.register('duration')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
+                <label>Tipo de Duração:</label>
                 <select 
                     name="durationType" 
                     {...methods.register('durationType')}
+                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
                     {durationTypes?.map((type) => <option value={type.id}>{type.name}</option>)}
                 </select>
-                <input
-                    {...methods.register('fileId')}
-                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
-                />
                 <button
                     disabled={isLoading}
                     type='submit'

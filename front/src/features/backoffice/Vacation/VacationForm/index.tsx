@@ -26,17 +26,21 @@ const VacationForm = ({
                 className='flex w-80 flex-col items-center justify-center'
                 onSubmit={methods.handleSubmit(handleAction)}
             >
+                <label>Funcionário:</label>
                 <select 
                     name="idEmployee" 
                     {...methods.register('idEmployee')}
+                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
-                    {employees?.map((employee) => <option value={employee.id}>{employee.name}</option>)}
+                    {employees?.map((employee) => <option key={employee.id} value={employee.id}>{employee.name}</option>)}
                 </select>
+                <label>Data de Início:</label>
                 <input
                     type={'date'}
                     {...methods.register('startDate')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
+                <label>Data de Fim:</label>
                 <input
                     type={'date'}
                     {...methods.register('endDate')}

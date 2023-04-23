@@ -3,7 +3,6 @@ import Home from "../../features/backoffice/Home";
 import Employee from "../../features/backoffice/Employee";
 import EmployeeCreate from "../../features/backoffice/Employee/EmployeeCreate/index";
 import EmployeeEdit from '../../features/backoffice/Employee/EmployeeEdit/index';
-import EmployeeJourneyControl from '../../features/backoffice/Employee/EmployeeJourneyControl/index';
 
 
 const Pages: Page[] = [
@@ -31,11 +30,6 @@ const Pages: Page[] = [
         title: 'edit',
         route: 'edit/:id',
         component: EmployeeEdit,
-      },
-      {
-        title: 'journey-control',
-        route: 'journey-control/:id',
-        component: EmployeeJourneyControl,
       }
     ],
   },

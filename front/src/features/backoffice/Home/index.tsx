@@ -2,15 +2,18 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../services/user";
 import {IUser} from "../../../types/user";
 import {useCallback} from "react";
-import {Trash} from "@phosphor-icons/react";
+import {Trash, Pencil} from "@phosphor-icons/react";
 import {ExceptionService} from "../../../services/exception";
 import {IException} from "../../../types/exception";
 import {VacationService} from "../../../services/vacation";
 import {IVacation} from "../../../types/vacation";
 import {EventService} from "../../../services/event";
-import { IEvent } from "../../../types/event";
+import {IEvent} from "../../../types/event";
+import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     const { data: employees, refetch: refetchEmployees } = useQuery('employee-list', () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
@@ -88,28 +91,6 @@ const Home = () => {
         }
     }
 
-    const createVacationExample = async () => {
-        await VacationService.create({
-            startDate: new Date(),
-            endDate: new Date(),
-            user: {
-                id: 2,
-            },
-        } as IVacation);
-        await refetchVacations();
-    }
-
-    const updateVacationExample = useCallback(async () => {
-        await VacationService.update(
-            {
-                ...vacations?.[0],
-                startDate: new Date(),
-                endDate: new Date(),
-            } as IVacation
-        );
-        await refetchVacations();
-    }, [refetchVacations, vacations])
-
     const deleteVacationExample = async (id?: number) => {
         if (id) {
             await VacationService.delete(id);
@@ -122,10 +103,11 @@ const Home = () => {
             <div className="flex flex-col my-6">
                 <h1>FUNCIONÁRIOS</h1>
                 <button
+                    title="Cadastrar"
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={createEmployeeExample}
+                    onClick={() => navigate('employee/create')}
                 >
-                    Criar funcionário
+                    Cadastrar funcionário
                 </button>
                 {employees?.map((d: IUser) => (
                         <div key={d.id} className="flex gap-2">
@@ -134,13 +116,15 @@ const Home = () => {
                             <p>{d.phone}</p>
                             <p>{d.isEmployee ? 'Sim' : 'Não'}</p>
                             <button
+                                title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={updateEmployeeExample}
+                                onClick={() => navigate(`employee/edit/${d.id}`)}
                             >
-                                Atualizar
+                                <Pencil size={20} />
                             </button>
                             {d.id !== 2 &&
                                 <button
+                                    title="Excluir"
                                     onClick={() => deleteEmployeeExample(d.id)}
                                 >
                                     <Trash size={20} />
@@ -153,10 +137,11 @@ const Home = () => {
             <div className="flex flex-col my-6">
                 <h1>EXCEÇÃO</h1>
                 <button
+                    title="Cadastrar"
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={createExceptionExample}
+                    onClick={() => navigate('exception/create')}
                 >
-                    Criar exceção
+                    Cadastrar exceção
                 </button>
                 {exceptions?.map((d: IException) => (
                         <div key={d.id} className="flex gap-2">
@@ -167,12 +152,14 @@ const Home = () => {
                             <p>{d.isResolved}</p>|
                             <p>{d.user?.name}</p>|
                             <button
+                                title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={updateExceptionExample}
+                                onClick={() => navigate(`exception/edit/${d.id}`)}
                             >
-                                Atualizar
+                                <Pencil size={20} />
                             </button>
                             <button
+                                title="Excluir"
                                 onClick={() => deleteExceptionExample(d.id)}
                             >
                                 <Trash size={20} />
@@ -184,10 +171,11 @@ const Home = () => {
             <div className="flex flex-col my-6">
                 <h1>FÉRIAS</h1>
                 <button
+                    title="Cadastrar"
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={createVacationExample}
+                    onClick={() => navigate('vacation/create')}
                 >
-                    Criar férias
+                    Cadastrar férias
                 </button>
                 {vacations?.map((d: IVacation) => (
                         <div key={d.id} className="flex gap-2">
@@ -195,12 +183,14 @@ const Home = () => {
                             <p>{d.endDate?.toString()}</p>|
                             <p>{d.user?.name}</p>|
                             <button
+                                title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={updateVacationExample}
+                                onClick={() => navigate(`vacation/edit/${d.id}`)}
                             >
-                                Atualizar
+                                <Pencil size={20} />
                             </button>
                             <button
+                                title="Excluir"
                                 onClick={() => deleteVacationExample(d.id)}
                             >
                                 <Trash size={20} />
@@ -212,10 +202,11 @@ const Home = () => {
             <div className="flex flex-col my-6">
                 <h1>EVENTOS</h1>
                 <button
+                    title="Cadastrar"
                     className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                    onClick={() => {console.log(d.id)}}
+                    onClick={() => navigate('event/create')}
                 >
-                    Criar evento
+                    Cadastrar evento
                 </button>
                 {events?.map((d: IEvent) => (
                         <div key={d.id} className="flex gap-2">
@@ -223,12 +214,14 @@ const Home = () => {
                             <p>{d.type}</p>|
                             <p>{d.user?.name}</p>
                             <button
+                                title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => {console.log(d.id)}}
+                                onClick={() => navigate(`event/edit/${d.id}`)}
                             >
-                                Atualizar
+                                <Pencil size={20} />
                             </button>
                             <button
+                                title="Excluir"
                                 onClick={() => {console.log(d.id)}}
                             >
                                 <Trash size={20} />

@@ -35,7 +35,7 @@ const ExceptionCreate = () => {
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                Cadastrar Nova Férias
+                Cadastrar Nova Exceção
             </span>
             <div>
                 <ExceptionForm 
