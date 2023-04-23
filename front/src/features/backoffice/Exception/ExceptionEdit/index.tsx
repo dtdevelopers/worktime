@@ -6,11 +6,13 @@ import {useCallback} from "react";
 import VacationForm, { TFormException } from "../ExceptionForm/index";
 import { useParams } from "react-router-dom";
 import { IException } from "../../../../types/exception";
+import { EventService } from "../../../../services/event";
+import { ExceptionService } from "../../../../services/exception";
 
 const ExceptionEdit = () => {
     const { id } = useParams();
 
-    const { data, isLoading } = useQuery(`exception-${id}`, () => UserService.findAll(), {
+    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -21,12 +23,28 @@ const ExceptionEdit = () => {
         },
     });
 
-    const methods = useForm({
-        defaultValues: data as IException,
+    const { exception } = useQuery(`exception-${id}`, () => ExceptionService.find(id), {
+        refetchOnWindowFocus: false,
+        initialData: [],
     });
 
-    const handleEdit = useCallback((values: TFormException) => {
-        console.log("🚀 ~ handleEdit ~ values:", values)
+    const methods = useForm({
+        defaultValues: exception as IException,
+    });
+
+    const handleEditException = useCallback(async (values: TFormException) => {
+        const { description, duration, durationType, occurrenceDate, idEmployee } = values
+        await ExceptionService.update(
+            {
+                description,
+                duration,
+                durationType,
+                occurrenceDate,
+                user: {
+                    id: Number(idEmployee)
+                }
+            }
+        );
     }, [])
 
     return (
@@ -36,7 +54,7 @@ const ExceptionEdit = () => {
             </span>
             <div>
                 <VacationForm 
-                    handleAction={handleEdit}
+                    handleAction={handleEditException}
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}

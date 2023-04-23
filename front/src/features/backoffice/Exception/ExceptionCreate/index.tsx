@@ -4,6 +4,7 @@ import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import ExceptionForm, { TFormException } from "../ExceptionForm/index";
+import { ExceptionService } from "../../../../services/exception";
 
 const ExceptionCreate = () => {
     const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
@@ -28,8 +29,17 @@ const ExceptionCreate = () => {
         },
     });
 
-    const handleCreate = useCallback((values: TFormException) => {
-        console.log(values)
+    const handleCreateException = useCallback(async (values: TFormException) => {
+        const { description, duration, durationType, occurrenceDate, idEmployee } = values
+        await ExceptionService.create({
+            occurrenceDate,
+            duration,
+            durationType,
+            description,
+            user: {
+                id: Number(idEmployee)
+            }
+        });
     }, [])
 
     return (
@@ -39,7 +49,7 @@ const ExceptionCreate = () => {
             </span>
             <div>
                 <ExceptionForm 
-                    handleAction={handleCreate}
+                    handleAction={handleCreateException}
                     isLoading={isLoading}
                     methods={methods}
                     employees={data}

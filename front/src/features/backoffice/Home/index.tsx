@@ -52,46 +52,21 @@ const Home = () => {
         await refetchEmployees();
     }, [employees, refetchEmployees])
 
-    const deleteEmployeeExample = async (id?: number) => {
+    const deleteEmployee = async (id?: number) => {
         if (id) {
             await UserService.delete(id);
             await refetchEmployees();
         }
     }
 
-    const createExceptionExample = async () => {
-        await ExceptionService.create({
-            occurrenceDate: new Date(),
-            duration: 1,
-            durationType: 'day',
-            description: 'Exception example',
-            user: {
-                id: 2,
-            },
-            isResolved: true,
-            fileId: 'file id example'
-        } as IException);
-        await refetchExceptions();
-    }
-
-    const updateExceptionExample = useCallback(async () => {
-        await ExceptionService.update(
-            {
-                ...exceptions?.[0],
-                duration: Math.floor(Math.random() * 100)
-            } as IException
-        );
-        await refetchExceptions();
-    }, [exceptions, refetchExceptions])
-
-    const deleteExceptionExample = async (id?: number) => {
+    const deleteException = async (id?: number) => {
         if (id) {
             await ExceptionService.delete(id);
             await refetchExceptions();
         }
     }
 
-    const deleteVacationExample = async (id?: number) => {
+    const deleteVacation = async (id?: number) => {
         if (id) {
             await VacationService.delete(id);
             await refetchVacations();
@@ -125,7 +100,7 @@ const Home = () => {
                             {d.id !== 2 &&
                                 <button
                                     title="Excluir"
-                                    onClick={() => deleteEmployeeExample(d.id)}
+                                    onClick={() => deleteEmployee(d.id)}
                                 >
                                     <Trash size={20} />
                                 </button>
@@ -160,7 +135,7 @@ const Home = () => {
                             </button>
                             <button
                                 title="Excluir"
-                                onClick={() => deleteExceptionExample(d.id)}
+                                onClick={() => deleteException(d.id)}
                             >
                                 <Trash size={20} />
                             </button>
@@ -191,7 +166,7 @@ const Home = () => {
                             </button>
                             <button
                                 title="Excluir"
-                                onClick={() => deleteVacationExample(d.id)}
+                                onClick={() => deleteVacation(d.id)}
                             >
                                 <Trash size={20} />
                             </button>

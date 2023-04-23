@@ -11,7 +11,7 @@ import { IVacation } from "../../../../types/vacation";
 const VacationEdit = () => {
     const { id } = useParams();
 
-    const { data, isLoading } = useQuery(`vacation-${id}`, () => UserService.findAll(), {
+    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -22,19 +22,23 @@ const VacationEdit = () => {
         },
     });
 
+    const { vacation } = useQuery(`event-${id}`, () => VacationService.find(id), {
+        refetchOnWindowFocus: false,
+        initialData: [],
+    });
+
     const methods = useForm({
-        defaultValues: data as IVacation,
+        defaultValues: vacation as IVacation,
     });
 
     const handleEdit = useCallback(async (values: TFormVacation) => {
-        console.log("🚀 ~ handleEdit ~ values:", values)
         const { startDate, endDate, idEmployee } = values
         await VacationService.update(
             {
                 startDate,
                 endDate,
                 user: {
-                    id: idEmployee
+                    id: Number(idEmployee)
                 }
             }
         );

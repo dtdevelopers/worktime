@@ -27,10 +27,12 @@ const VacationCreate = () => {
     });
 
     const handleCreateVacation = useCallback(async (values: TFormVacation) => {
+        const { startDate, endDate, idEmployee } = values
         await VacationService.create({
-            ...values,
+            startDate,
+            endDate,
             user: {
-                id: Number(values.idEmployee)
+                id: Number(idEmployee)
             },
         });
     }, [])

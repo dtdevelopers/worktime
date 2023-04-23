@@ -6,11 +6,12 @@ import {useCallback} from "react";
 import EventForm, { TFormEvent } from "../EventForm/index";
 import { useParams } from "react-router-dom";
 import { IEvent } from "../../../../types/event";
+import { EventService } from "../../../../services/event";
 
 const EventEdit = () => {
     const { id } = useParams();
 
-    const { data, isLoading } = useQuery(`event-${id}`, () => UserService.findAll(), {
+    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -21,8 +22,13 @@ const EventEdit = () => {
         },
     });
 
+    const { event } = useQuery(`event-${id}`, () => EventService.find(id), {
+        refetchOnWindowFocus: false,
+        initialData: [],
+    });
+
     const methods = useForm({
-        defaultValues: data as IEvent,
+        defaultValues: event as IEvent,
     });
 
     const handleEdit = useCallback((values: TFormEvent) => {
