@@ -1,6 +1,6 @@
 import {FormProvider} from "react-hook-form";
 
-const Form = ({ 
+const EmployeePersonalForm = ({ 
     handleAction, 
     isLoading,
     methods 
@@ -58,4 +58,4 @@ const Form = ({
     );
 }
 
-export default Form;
+export default EmployeePersonalForm;

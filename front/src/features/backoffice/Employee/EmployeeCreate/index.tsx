@@ -3,13 +3,10 @@ import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
 import {useCallback} from "react";
-import Form from "../Form/index";
-import { useParams } from "react-router-dom";
+import EmployeePersonalForm from "../Form/index";
 
-const Edit = () => {
-    const { id } = useParams();
-
-    const { data, refetch, isLoading } = useQuery(`employee${id}`, () => UserService.findAll(), {
+const EmployeeCreate = () => {
+    const { data, refetch, isLoading } = useQuery(`employee`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -21,21 +18,28 @@ const Edit = () => {
     });
 
     const methods = useForm({
-        defaultValues: data,
+        defaultValues: { 
+            name: '', 
+            document: '', 
+            birthdate: '',
+            email: '',
+            phone: '',
+            password: '' 
+        },
     });
 
-    const handleEdit = useCallback((values: any) => {
-        console.log("🚀 ~ handleEdit ~ values:", values)
+    const handleCreate = useCallback((values: any) => {
+        console.log(values)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
-                Editar Funcionário
+                Cadastrar Novo Funcionário
             </span>
             <div>
-                <Form 
-                    handleAction={handleEdit}
+                <EmployeePersonalForm 
+                    handleAction={handleCreate}
                     isLoading={isLoading}
                     methods={methods}
                 />
@@ -44,4 +48,4 @@ const Edit = () => {
     );
 }
 
-export default Edit;
+export default EmployeeCreate;

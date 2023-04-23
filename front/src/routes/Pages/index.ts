@@ -1,8 +1,9 @@
 import {Page} from '../../types/page';
 import Home from "../../features/backoffice/Home";
 import Employee from "../../features/backoffice/Employee";
-import Create from "../../features/backoffice/Employee/Create/index";
-import Edit from '../../features/backoffice/Employee/Edit/index';
+import EmployeeCreate from "../../features/backoffice/Employee/EmployeeCreate/index";
+import EmployeeEdit from '../../features/backoffice/Employee/EmployeeEdit/index';
+import EmployeeJourneyControl from '../../features/backoffice/Employee/EmployeeJourneyControl/index';
 
 
 const Pages: Page[] = [
@@ -24,13 +25,18 @@ const Pages: Page[] = [
       {
         title: 'create',
         route: 'create',
-        component: Create,
+        component: EmployeeCreate,
       },
       {
-        title: 'create',
+        title: 'edit',
         route: 'edit/:id',
-        component: Edit,
+        component: EmployeeEdit,
       },
+      {
+        title: 'journey-control',
+        route: 'journey-control/:id',
+        component: EmployeeJourneyControl,
+      }
     ],
   },
 ];

@@ -8,9 +8,10 @@ import PrivateRoute from './PrivateRoute';
 import Login from "../features/public/Login";
 import api from "../services/api";
 import Home from "../features/backoffice/Home";
-import Create from "../features/backoffice/Employee/Create";
-import Edit from "../features/backoffice/Employee/Edit";
 import Employee from "../features/backoffice/Employee";
+import EmployeeCreate from '../features/backoffice/Employee/EmployeeCreate/index';
+import EmployeeEdit from '../features/backoffice/Employee/EmployeeEdit/index';
+import EmployeeJourneyControl from '../features/backoffice/Employee/EmployeeJourneyControl/index';
 
 export const queryClient = new QueryClient();
 
@@ -59,12 +60,17 @@ function Routes() {
                       <Route
                         key={'employee-create'}
                         path={'create'}
-                        element={<Create />}
+                        element={<EmployeeCreate />}
                       />
                       <Route
                         key={'employee-edit'}
                         path={'edit/:id'}
-                        element={<Edit />}
+                        element={<EmployeeEdit />}
+                      />
+                      <Route
+                        key={'employee-journey-control'}
+                        path={'journey-control/:id'}
+                        element={<EmployeeJourneyControl />}
                       />
                   </Route>
                   <Route path='*' element={<span>wildcard</span>} />

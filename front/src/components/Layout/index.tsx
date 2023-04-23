@@ -8,7 +8,7 @@ const Layout = () => {
         <div className="flex h-full flex-col">
             <h1>layout header</h1>
             <Outlet />
-            <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={() => navigate('employee')}>Funcionários</button>
+            <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={() => navigate('employee')}>Usuários</button>
             <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={logout}>Sair</button>
         </div>
     );

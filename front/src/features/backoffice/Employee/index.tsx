@@ -18,49 +18,63 @@ const Employee = () => {
         },
     });
 
-    const handleDelete = useCallback((values: any) => {
-        console.log(values)
+    const handleDelete = useCallback((idEmployee: number) => {
+        console.log(idEmployee)
     }, [])
 
     return (
         <div className="flex flex-col gap-2">
-            <h1>Funcionários</h1>
+            <h1>Gerenciar Usuários</h1>
             <Outlet />
             <div>
-                <button onClick={() => navigate('create')}>Cadastrar</button>
+                <button onClick={() => navigate('create')}>Cadastrar Novo Usuário</button>
             </div>
             <div>
-                <div className='flex flex-row'>
-                    <div>
+                <div className='flex flex-row' style={{width: '100%'}}>
+                    <div style={{width: '30%'}}>
                         <p>Nome</p>
                     </div>
-                    <div>
+                    <div style={{width: '30%'}}>
                         <p>Email</p>
                     </div>
-                    <div>
+                    <div style={{width: '10%'}}>
                         <p>Funcionário?</p>    
                     </div>
-                    <div>
+                    <div style={{width: '30%'}}>
                         <p>Ações</p>
                     </div>
                 </div>
                 <div>
                     {data.map((employee: IUser) => (
-                        <div key={employee.id} className='flex flex-row'>
-                            <div>
+                        <div key={employee.id} className='flex flex-row' style={{width: '100%'}}>
+                            <div style={{width: '30%'}}>
                                 <h2>{employee.name}</h2>
                             </div>
-                            <div>
+                            <div style={{width: '30%'}}>
                                 <p>{employee.email}</p>
                             </div>
-                            <div>
+                            <div style={{width: '10%'}}>
                                 {employee.isEmployee ? 'Sim' : 'Não'}    
                             </div>
-                            <div>
-                                <button onClick={() => navigate(`edit/${employee.id}`)}>Editar</button>
-                            </div>
-                            <div>
-                                <button onClick={() => handleDelete('register-employee')}>Excluir</button>
+                            <div className='flex flex-row' style={{justifyContent: 'space-between', width: '30%'}}>
+                                <button
+                                    title="Controle de Jornada" 
+                                    onClick={() => navigate(`journey-control/${employee.id}`)}
+                                >
+                                    Controle de Jornada
+                                </button>
+                                <button
+                                    title="Editar Perfil" 
+                                    onClick={() => navigate(`edit/${employee.id}`)}
+                                >
+                                    Editar Perfil
+                                </button>
+                                <button 
+                                    title="Excluir Usuário"
+                                    onClick={() => handleDelete(employee.id)}
+                                >
+                                    Excluir Usuário
+                                </button>
                             </div>
                         </div>
                     ))}
