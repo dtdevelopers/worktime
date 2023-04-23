@@ -37,7 +37,7 @@ const ExceptionForm = ({
                     {...methods.register('idEmployee')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
-                    {employees?.map((employee) => <option value={employee.id}>{employee.name}</option>)}
+                    {employees?.map((employee) => <option key={employee.id} value={employee.id}>{employee.name}</option>)}
                 </select>
                 <label>Descrição:</label>
                 <input
@@ -63,7 +63,7 @@ const ExceptionForm = ({
                     {...methods.register('durationType')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
-                    {durationTypes?.map((type) => <option value={type.id}>{type.name}</option>)}
+                    {durationTypes?.map((type) => <option key={type.id} value={type.id}>{type.name}</option>)}
                 </select>
                 <button
                     disabled={isLoading}
