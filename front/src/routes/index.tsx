@@ -2,22 +2,19 @@ import {HashRouter, Route, Routes as ReactRoutes} from 'react-router-dom';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import Layout from '../components/Layout';
 import useAuthStore from '../store/Auth';
-import Pages from './Pages';
 import {toast, ToastContainer, Zoom} from 'react-toastify';
-import PrivateRoute from './PrivateRoute';
 import Login from "../features/public/Login";
 import api from "../services/api";
 import Home from "../features/backoffice/Home";
-import Employee from "../features/backoffice/Employee";
 import EmployeeCreate from '../features/backoffice/Employee/EmployeeCreate/index';
 import EmployeeEdit from '../features/backoffice/Employee/EmployeeEdit/index';
-import EmployeeJourneyControl from '../features/backoffice/Employee/EmployeeJourneyControl/index';
 import EventCreate from '../features/backoffice/Event/EventCreate/index';
 import EventEdit from '../features/backoffice/Event/EventEdit/index';
 import VacationEdit from '../features/backoffice/Vacation/VacationEdit/index';
 import VacationCreate from '../features/backoffice/Vacation/VacationCreate/index';
 import ExceptionCreate from '../features/backoffice/Exception/ExceptionCreate/index';
 import ExceptionEdit from '../features/backoffice/Exception/ExceptionEdit/index';
+import JourneyControl from '../features/backoffice/JourneyControl/index';
 
 export const queryClient = new QueryClient();
 
@@ -58,7 +55,7 @@ function Routes() {
                       path={''}
                       element={<Home />}
                   />
-<Route
+                  <Route
                     key={'employee-create'}
                     path={'employee/create'}
                     element={<EmployeeCreate />}
@@ -98,6 +95,17 @@ function Routes() {
                     path={'vacation/edit/:id'}
                     element={<VacationEdit />}
                   />
+                  <Route
+                    key={'vacation-edit'}
+                    path={'control-screen'}
+                    element={<JourneyControl />}
+                  >
+                    <Route
+                      key={'perfil-edit'}
+                      path={'perfil/edit/:id'}
+                      element={<EmployeeEdit />}
+                    />
+                  </Route>
                   <Route path='*' element={<span>wildcard</span>} />
               </Route>
             ) : (

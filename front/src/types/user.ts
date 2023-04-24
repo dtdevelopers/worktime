@@ -8,5 +8,7 @@ export interface IUser {
   passwordConfirmation?: string | undefined;
   birthdate?: Date | undefined;
   isEmployee?: boolean;
+  hireDate?: Date | undefined;
+  monthlyWorkload?: number | undefined
 }
 

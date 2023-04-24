@@ -1,7 +1,6 @@
 import {useQuery} from "react-query";
 import {UserService} from "../../../services/user";
 import {IUser} from "../../../types/user";
-import {useCallback} from "react";
 import {Trash, Pencil} from "@phosphor-icons/react";
 import {ExceptionService} from "../../../services/exception";
 import {IException} from "../../../types/exception";
