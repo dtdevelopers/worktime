@@ -14,7 +14,7 @@ const Layout = () => {
                     Home
                 </button>
                 <div>
-                    <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={() => navigate('/control-screen')}>Bla</button>
+                    <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={() => navigate('/control-screen')}>Controle</button>
                     <button className="bg-primary text-gray-300 px-4 py-2 font-bold" onClick={logout}>Sair</button>
                 </div>
             </div>

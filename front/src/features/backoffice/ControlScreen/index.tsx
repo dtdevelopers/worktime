@@ -4,7 +4,7 @@ import {IUser} from "../../../types/user";
 import {Trash, User, Clock, Airplane, FirstAidKit} from "@phosphor-icons/react";
 import {useNavigate} from 'react-router-dom';
 
-const JourneyControl = () => {
+const ControlScreen = () => {
     const navigate = useNavigate();
 
     const { data: employees, refetch: refetchEmployees } = useQuery('employee-list', () => UserService.findAll(), {
@@ -75,4 +75,4 @@ const JourneyControl = () => {
     );
 }
 
-export default JourneyControl;
+export default ControlScreen;

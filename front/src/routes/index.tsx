@@ -14,7 +14,7 @@ import VacationEdit from '../features/backoffice/Vacation/VacationEdit/index';
 import VacationCreate from '../features/backoffice/Vacation/VacationCreate/index';
 import ExceptionCreate from '../features/backoffice/Exception/ExceptionCreate/index';
 import ExceptionEdit from '../features/backoffice/Exception/ExceptionEdit/index';
-import JourneyControl from '../features/backoffice/JourneyControl/index';
+import ControlScreen from '../features/backoffice/ControlScreen/index';
 
 export const queryClient = new QueryClient();
 
@@ -98,7 +98,7 @@ function Routes() {
                   <Route
                     key={'vacation-edit'}
                     path={'control-screen'}
-                    element={<JourneyControl />}
+                    element={<ControlScreen />}
                   >
                     <Route
                       key={'perfil-edit'}
