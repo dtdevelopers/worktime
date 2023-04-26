@@ -7,17 +7,6 @@ import EmployeeForm, { TFormUser } from "../EmployeeForm/index";
 
 const EmployeeCreate = () => {
     const [loading, setLoading] = useState(false)
-    const methods = useForm({
-        defaultValues: { 
-            name: '', 
-            document: '', 
-            birthdate: '',
-            email: '',
-            phone: '',
-            password: '' 
-        },
-    });
-
     const handleCreateEmployee = useCallback(async (values: TFormUser) => {
         const { name, document, birthdate, email, phone, password } = values
         try {
@@ -43,10 +32,9 @@ const EmployeeCreate = () => {
                 Cadastrar Novo Funcionário
             </span>
             <div>
-                <EmployeeForm 
+                <EmployeeForm
                     handleAction={handleCreateEmployee}
                     isLoading={loading}
-                    methods={methods}
                 />
             </div>
         </div>

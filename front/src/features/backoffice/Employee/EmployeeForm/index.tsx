@@ -1,4 +1,4 @@
-import {FormProvider} from "react-hook-form";
+import {FormProvider, useForm} from "react-hook-form";
 
 export type TFormUser = {
     name: string;
@@ -9,17 +9,28 @@ export type TFormUser = {
     password: string;
 }
 
-const EmployeeForm = ({ 
-    handleAction, 
+const EmployeeForm = ({
+    handleAction,
     isLoading,
-    methods,
+    initialData,
     isEditing = false
 }: {
-    handleAction: (values: TFormUser) => void, 
+    handleAction: (values: TFormUser) => void,
     isLoading: boolean,
-    methods: any,
+    initialData?: TFormUser,
     isEditing?: boolean
 }) => {
+    const methods = useForm({
+        defaultValues: initialData as TFormUser || {
+            name: '',
+            document: '',
+            birthdate: '',
+            email: '',
+            phone: '',
+            password: ''
+        },
+    });
+
     return (
         <FormProvider {...methods}>
             <form

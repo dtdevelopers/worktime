@@ -55,7 +55,7 @@ const ControlScreen = () => {
                             <button
                                 title="Editar Perfil"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`perfil/edit/${d.id}`)}
+                                onClick={() => navigate(`/employee/edit/${d.id}`)}
                             >
                                 <User size={20} />
                             </button>

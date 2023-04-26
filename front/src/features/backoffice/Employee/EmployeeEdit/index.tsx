@@ -1,7 +1,6 @@
 import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import {useParams} from "react-router-dom";
 import EmployeeForm, { TFormUser } from "../EmployeeForm/index";
@@ -10,19 +9,17 @@ import { IUser } from "../../../../types/user";
 const EmployeeEdit = () => {
     const { id }: { id: string | undefined} = useParams();
 
-    const { data: employee, isLoading } = useQuery(`user-${id}`, () => UserService.find(Number(id)), {
+    const { data: employee, isLoading } = useQuery(
+        `user-${id}`,
+        () => UserService.find(Number(id)), {
         refetchOnWindowFocus: false,
-        initialData: [],
+        initialData: null,
         onSuccess: (_data: IUser) => {
             console.log(_data);
         },
         onError: (err: Error) => {
             toast.error(err.message);
         }
-    });
-
-    const methods = useForm({
-        defaultValues: employee as IUser,
     });
 
     const handleEditUser = useCallback(async (values: TFormUser) => {
@@ -46,12 +43,14 @@ const EmployeeEdit = () => {
                 Editar Funcionário
             </span>
             <div>
-                <EmployeeForm 
-                    handleAction={handleEditUser}
-                    isLoading={isLoading}
-                    methods={methods}
-                    isEditing={true}
-                />
+                {employee &&
+                    <EmployeeForm
+                        initialData={employee}
+                        handleAction={handleEditUser}
+                        isLoading={isLoading}
+                        isEditing={true}
+                    />
+                }
             </div>
         </div>
     );
