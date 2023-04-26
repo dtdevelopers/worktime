@@ -9,7 +9,7 @@ import { IException } from "../../../../types/exception";
 import { ExceptionService } from "../../../../services/exception";
 
 const ExceptionEdit = () => {
-    const { id }: { id: string | undefined} = useParams();
+    const { id }: { id?: string } = useParams();
 
     const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
@@ -24,7 +24,6 @@ const ExceptionEdit = () => {
 
     const { data: exception } = useQuery(`exception-${id}`, () => ExceptionService.find(Number(id)), {
         refetchOnWindowFocus: false,
-        initialData: [],
         onSuccess: (_data: IException) => {
             console.log(_data);
         },
@@ -63,7 +62,7 @@ const ExceptionEdit = () => {
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={employees}
+                    employees={employees ?? []}
                     durationTypes={[]}
                 />
             </div>

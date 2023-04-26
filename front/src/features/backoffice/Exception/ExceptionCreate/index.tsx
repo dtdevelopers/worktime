@@ -30,12 +30,14 @@ const ExceptionCreate = () => {
     });
 
     const handleCreateException = useCallback(async (values: TFormException) => {
-        const { description, duration, durationType, occurrenceDate, idEmployee } = values
+        const { description, duration, durationType, occurrenceDate, idEmployee, fileId, isResolved } = values
         await ExceptionService.create({
             occurrenceDate,
             duration,
             durationType,
             description,
+            isResolved,
+            fileId,
             user: {
                 id: Number(idEmployee)
             }
@@ -52,7 +54,7 @@ const ExceptionCreate = () => {
                     handleAction={handleCreateException}
                     isLoading={isLoading}
                     methods={methods}
-                    employees={data}
+                    employees={data ?? []}
                     durationTypes={[]}
                 />
             </div>

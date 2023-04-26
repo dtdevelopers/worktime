@@ -6,6 +6,8 @@ export type TFormUser = {
     birthdate: Date;
     email: string;
     phone: string;
+    hireDate: Date,
+    monthlyWorkload: number,
     password: string;
 }
 

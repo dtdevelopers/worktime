@@ -7,13 +7,12 @@ import EmployeeForm, { TFormUser } from "../EmployeeForm/index";
 import { IUser } from "../../../../types/user";
 
 const EmployeeEdit = () => {
-    const { id }: { id: string | undefined} = useParams();
+    const { id }: { id?: string } = useParams();
 
     const { data: employee, isLoading } = useQuery(
         `user-${id}`,
         () => UserService.find(Number(id)), {
         refetchOnWindowFocus: false,
-        initialData: null,
         onSuccess: (_data: IUser) => {
             console.log(_data);
         },
@@ -23,7 +22,7 @@ const EmployeeEdit = () => {
     });
 
     const handleEditUser = useCallback(async (values: TFormUser) => {
-        const { name, document, birthdate, email, phone, password } = values
+        const { name, document, birthdate, email, phone, password, hireDate,  monthlyWorkload } = values
         await UserService.update(
             {
                 id: Number(id),
@@ -32,6 +31,8 @@ const EmployeeEdit = () => {
                 birthdate,
                 email,
                 phone,
+                hireDate,
+                monthlyWorkload,
                 password
             }
         );

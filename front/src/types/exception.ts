@@ -1,12 +1,13 @@
-import {IUser} from "./user";
-
 export interface IException {
-  id: number | undefined;
+  id?: number | undefined;
   description: string;
   duration: number | undefined;
   durationType: string | undefined;
   occurrenceDate: Date | undefined;
-  user: IUser;
+  user: {
+    id: number;
+    name?: string;
+  };
   isResolved: boolean | undefined;
   fileId: string | undefined;
 }

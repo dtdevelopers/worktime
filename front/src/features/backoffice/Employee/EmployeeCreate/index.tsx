@@ -1,14 +1,13 @@
 import {toast} from "react-toastify";
-import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useForm} from "react-hook-form";
 import {useCallback, useState} from "react";
 import EmployeeForm, { TFormUser } from "../EmployeeForm/index";
 
 const EmployeeCreate = () => {
     const [loading, setLoading] = useState(false)
+    
     const handleCreateEmployee = useCallback(async (values: TFormUser) => {
-        const { name, document, birthdate, email, phone, password } = values
+        const { name, document, birthdate, email, phone, hireDate, monthlyWorkload, password } = values
         try {
             setLoading(true)
             await UserService.create({
@@ -17,7 +16,10 @@ const EmployeeCreate = () => {
                 birthdate,
                 email,
                 phone,
-                password
+                password,
+                isEmployee: true,
+                hireDate,
+                monthlyWorkload
             });
         } catch (error) {
             toast.error('Erro ao Cadastrar Novo Funcionário!')

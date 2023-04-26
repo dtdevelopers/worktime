@@ -1,9 +1,10 @@
-import {IUser} from "./user";
-
 export interface IVacation {
-  id: number | undefined;
-  startDate: Date | undefined;
-  endDate: Date | undefined;
-  user: IUser;
+  id?: number;
+  startDate: Date;
+  endDate: Date;
+  user: {
+    id: number;
+    name?: string;
+  };
 }
 

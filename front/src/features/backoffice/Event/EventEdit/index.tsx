@@ -9,7 +9,7 @@ import { IEvent } from "../../../../types/event";
 import { EventService } from "../../../../services/event";
 
 const EventEdit = () => {
-    const { id }: { id: string | undefined} = useParams();
+    const { id }: { id?: string } = useParams();
 
     const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
@@ -24,7 +24,6 @@ const EventEdit = () => {
 
     const { data: event } = useQuery(`event-${id}`, () => EventService.find(Number(id)), {
         refetchOnWindowFocus: false,
-        initialData: [],
         onSuccess: (_data: IEvent) => {
             console.log(_data);
         },
@@ -61,7 +60,7 @@ const EventEdit = () => {
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={employees}
+                    employees={employees ?? []}
                 />
             </div>
         </div>

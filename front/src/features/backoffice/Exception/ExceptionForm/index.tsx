@@ -8,6 +8,7 @@ export type TFormException = {
     occurrenceDate: Date;
     idEmployee: number;
     fileId: string;
+    isResolved: boolean;
 }
 
 const ExceptionForm = ({ 

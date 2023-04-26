@@ -39,7 +39,7 @@ const EventCreate = () => {
                     handleAction={handleCreate}
                     isLoading={isLoading}
                     methods={methods}
-                    employees={data}
+                    employees={data ?? []}
                 />
             </div>
         </div>

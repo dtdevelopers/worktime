@@ -9,7 +9,7 @@ import {VacationService} from "../../../../services/vacation";
 import { IVacation } from "../../../../types/vacation";
 
 const VacationEdit = () => {
-    const { id }: { id: string | undefined} = useParams();
+    const { id }: { id?: string } = useParams();
 
     const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
@@ -24,7 +24,6 @@ const VacationEdit = () => {
 
     const { data: vacation } = useQuery(`event-${id}`, () => VacationService.find(Number(id)), {
         refetchOnWindowFocus: false,
-        initialData: [],
         onSuccess: (_data: IVacation) => {
             console.log(_data);
         },
@@ -62,7 +61,7 @@ const VacationEdit = () => {
                     isLoading={isLoading}
                     isEditing={true}
                     methods={methods}
-                    employees={employees}
+                    employees={employees ?? []}
                 />
             </div>
         </div>

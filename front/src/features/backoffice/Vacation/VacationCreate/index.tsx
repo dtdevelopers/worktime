@@ -47,7 +47,7 @@ const VacationCreate = () => {
                     handleAction={handleCreateVacation}
                     isLoading={isLoading}
                     methods={methods}
-                    employees={data}
+                    employees={data ?? []}
                 />
             </div>
         </div>
