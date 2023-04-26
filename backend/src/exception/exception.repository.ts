@@ -2,6 +2,7 @@ import { DataSource, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { Exception } from '../models/exception.model';
 import { Injectable } from '@nestjs/common';
 import { PageDTO } from '../interfaces/page.dto';
+import { Event } from '../models/event.model';
 
 @Injectable()
 export class ExceptionRepository extends Repository<Exception> {
@@ -21,6 +22,16 @@ export class ExceptionRepository extends Repository<Exception> {
       .take(pagination.take)
       .getManyAndCount();
     return { data, total };
+  }
+
+  public async findByUser(id: number): Promise<Exception[] | null> {
+    const query = this.createQueryBuilder('exception').where(
+      'exception.user_id = :id',
+      {
+        id,
+      },
+    );
+    return await query.getMany();
   }
 
   public async findById(id: number): Promise<Exception | null> {

@@ -15,12 +15,20 @@ export class EventService {
     return await this.eventRepository.findAll(pagination);
   }
 
+  async findByUser(id: number): Promise<Event[] | null> {
+    return await this.eventRepository.findByUser(id);
+  }
+
   async findOne(id: number): Promise<Event | null> {
     const event: Event = await this.eventRepository.findById(id);
     if (!event) {
       throw new NotFoundException('Event not found');
     }
     return event;
+  }
+
+  async getTypes(): Promise<string[] | null> {
+    return ['IN', 'OUT'];
   }
 
   public async create(event: Event): Promise<void> {

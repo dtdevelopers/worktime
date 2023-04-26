@@ -1,16 +1,10 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Exception } from 'src/models/exception.model';
 import { ExceptionRepository } from './exception.repository';
 import { PageOptionsDTO } from '../interfaces/pagination.dto';
 import { PageDTO } from '../interfaces/page.dto';
 import { PaginationUtil } from '../util/pagination-util';
 import { DeleteResult } from 'typeorm';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class ExceptionService {
@@ -19,6 +13,14 @@ export class ExceptionService {
   async findAll(pageable: PageOptionsDTO): Promise<PageDTO<Exception[]>> {
     const pagination = PaginationUtil.generatePagination(pageable);
     return await this.exceptionRepository.findAll(pagination);
+  }
+
+  async getDurationTypes(): Promise<string[] | null> {
+    return ['HOURS', 'DAYS', 'WEEKS', 'MONTHS'];
+  }
+
+  async findByUser(id: number): Promise<Exception[] | null> {
+    return await this.exceptionRepository.findByUser(id);
   }
 
   async findOne(id: number): Promise<Exception | null> {

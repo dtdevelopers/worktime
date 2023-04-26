@@ -32,6 +32,11 @@ export class VacationController {
     return page.data;
   }
 
+  @Get('user/:id')
+  async findByUser(@Param('id') id: number): Promise<Vacation[] | null> {
+    return await this.vacationService.findByUser(+id);
+  }
+
   @Get('/:id')
   async find(@Param('id') id: number): Promise<Vacation | null> {
     return await this.vacationService.findOne(+id);

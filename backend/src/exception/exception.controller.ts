@@ -32,6 +32,16 @@ export class ExceptionController {
     return page.data;
   }
 
+  @Get('/duration-types')
+  async getDurationTypes(): Promise<string[] | null> {
+    return await this.exceptionService.getDurationTypes();
+  }
+
+  @Get('user/:id')
+  async findByUser(@Param('id') id: number): Promise<Exception[] | null> {
+    return await this.exceptionService.findByUser(+id);
+  }
+
   @Get('/:id')
   async find(@Param('id') id: number): Promise<Exception | null> {
     return await this.exceptionService.findOne(+id);

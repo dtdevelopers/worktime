@@ -15,6 +15,10 @@ export class VacationService {
     return await this.vacationRepository.findAll(pagination);
   }
 
+  async findByUser(id: number): Promise<Vacation[] | null> {
+    return await this.vacationRepository.findByUser(id);
+  }
+
   async findOne(id: number): Promise<Vacation | null> {
     const vacation: Vacation = await this.vacationRepository.findById(id);
     if (!vacation) {

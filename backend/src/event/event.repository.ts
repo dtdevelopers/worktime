@@ -23,6 +23,16 @@ export class EventRepository extends Repository<Event> {
     return { data, total };
   }
 
+  public async findByUser(id: number): Promise<Event[] | null> {
+    const query = this.createQueryBuilder('event').where(
+      'event.user_id = :id',
+      {
+        id,
+      },
+    );
+    return await query.getMany();
+  }
+
   public async findById(id: number): Promise<Event | null> {
     const query = this.createQueryBuilder('event').where('event.id = :id', {
       id,

@@ -30,6 +30,16 @@ export class EventController {
     return page.data;
   }
 
+  @Get('/types')
+  async getTypes(): Promise<string[] | null> {
+    return await this.eventService.getTypes();
+  }
+
+  @Get('user/:id')
+  async findByUser(@Param('id') id: number): Promise<Event[] | null> {
+    return await this.eventService.findByUser(+id);
+  }
+
   @Get('/:id')
   async find(@Param('id') id: number): Promise<Event | null> {
     return await this.eventService.findOne(+id);

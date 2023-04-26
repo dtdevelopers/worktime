@@ -23,6 +23,16 @@ export class VacationRepository extends Repository<Vacation> {
     return { data, total };
   }
 
+  public async findByUser(id: number): Promise<Vacation[] | null> {
+    const query = this.createQueryBuilder('vacation').where(
+      'vacation.user_id = :id',
+      {
+        id,
+      },
+    );
+    return await query.getMany();
+  }
+
   public async findById(id: number): Promise<Vacation | null> {
     const query = this.createQueryBuilder('vacation').where(
       'vacation.id = :id',
