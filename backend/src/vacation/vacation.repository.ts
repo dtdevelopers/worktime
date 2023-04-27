@@ -38,12 +38,11 @@ export class VacationRepository extends Repository<Vacation> {
   }
 
   public async findById(id: number): Promise<Vacation | null> {
-    const query = this.createQueryBuilder('vacation').where(
-      'vacation.id = :id',
-      {
+    const query = this.createQueryBuilder('vacation')
+      .leftJoinAndSelect('event.user', 'user', 'user.id = event.user_id')
+      .where('vacation.id = :id', {
         id,
-      },
-    );
+      });
     return await query.getOne();
   }
 
