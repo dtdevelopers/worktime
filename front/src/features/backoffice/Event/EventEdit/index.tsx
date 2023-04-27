@@ -1,7 +1,6 @@
 import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import EventForm, { TFormEvent } from "../EventForm/index";
 import { useParams } from "react-router-dom";
@@ -32,10 +31,6 @@ const EventEdit = () => {
         }
     });
 
-    const methods = useForm({
-        defaultValues: event as IEvent,
-    });
-
     const handleEdit = useCallback(async (values: TFormEvent) => {
         const { createdDate, type, idEmployee } = values
         await EventService.update(
@@ -55,13 +50,13 @@ const EventEdit = () => {
                 Editar Evento
             </span>
             <div>
-                <EventForm 
+                {event && <EventForm 
                     handleAction={handleEdit}
                     isLoading={isLoading}
                     isEditing={true}
-                    methods={methods}
+                    initialData={{ ...event, idEmployee: Number(id) }}
                     employees={employees ?? []}
-                />
+                />}
             </div>
         </div>
     );

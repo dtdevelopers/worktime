@@ -1,7 +1,6 @@
 import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import EventForm, { TFormEvent } from "../EventForm/index";
 
@@ -14,14 +13,6 @@ const EventCreate = () => {
         },
         onError: (err: Error) => {
             toast.error(err.message);
-        },
-    });
-
-    const methods = useForm({
-        defaultValues: { 
-            createdDate: undefined,
-            type: '',
-            idEmployee: 0
         },
     });
 
@@ -38,7 +29,6 @@ const EventCreate = () => {
                 <EventForm 
                     handleAction={handleCreate}
                     isLoading={isLoading}
-                    methods={methods}
                     employees={data ?? []}
                 />
             </div>
