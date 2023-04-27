@@ -2,7 +2,6 @@ import { DataSource, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { Exception } from '../models/exception.model';
 import { Injectable } from '@nestjs/common';
 import { PageDTO } from '../interfaces/page.dto';
-import { Event } from '../models/event.model';
 
 @Injectable()
 export class ExceptionRepository extends Repository<Exception> {
@@ -40,12 +39,11 @@ export class ExceptionRepository extends Repository<Exception> {
   }
 
   public async findById(id: number): Promise<Exception | null> {
-    const query = this.createQueryBuilder('exception').where(
-      'exception.id = :id',
-      {
+    const query = this.createQueryBuilder('exception')
+      .leftJoinAndSelect('event.user', 'user', 'user.id = event.user_id')
+      .where('exception.id = :id', {
         id,
-      },
-    );
+      });
     return await query.getOne();
   }
 
