@@ -34,9 +34,11 @@ export class EventRepository extends Repository<Event> {
   }
 
   public async findById(id: number): Promise<Event | null> {
-    const query = this.createQueryBuilder('event').where('event.id = :id', {
-      id,
-    });
+    const query = this.createQueryBuilder('event')
+      .leftJoinAndSelect('event.user', 'user', 'user.id = event.user_id')
+      .where('event.id = :id', {
+        id,
+      });
     return await query.getOne();
   }
 
