@@ -12,7 +12,12 @@ export class ExceptionRepository extends Repository<Exception> {
 
   public async findAll(pagination): Promise<PageDTO<Exception[]> | null> {
     const query = this.createQueryBuilder('exception');
-    query.leftJoinAndSelect('exception.user', 'user');
+    query.leftJoinAndSelect(
+      'exception.user',
+      'user',
+      'user.id = exception.user_id',
+    );
+
     // todo filter by user
     // query.andWhere('exception.is_employee = :isEmployee', { isEmployee: true });
 

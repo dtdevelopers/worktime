@@ -11,7 +11,7 @@ export class EventRepository extends Repository<Event> {
 
   public async findAll(pagination): Promise<PageDTO<Event[]> | null> {
     const query = this.createQueryBuilder('event');
-    query.leftJoinAndSelect('event.user', 'user');
+    query.leftJoinAndSelect('event.user', 'user', 'user.id = event.user_id');
     // todo filter by user
     // query.andWhere('event.is_employee = :isEmployee', { isEmployee: true });
 

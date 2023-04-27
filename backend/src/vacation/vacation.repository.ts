@@ -11,7 +11,11 @@ export class VacationRepository extends Repository<Vacation> {
 
   public async findAll(pagination): Promise<PageDTO<Vacation[]> | null> {
     const query = this.createQueryBuilder('vacation');
-    query.leftJoinAndSelect('vacation.user', 'user');
+    query.leftJoinAndSelect(
+      'vacation.user',
+      'user',
+      'user.id = vacation.user_id',
+    );
     // todo filter by user
     // query.andWhere('vacation.is_employee = :isEmployee', { isEmployee: true });
 
