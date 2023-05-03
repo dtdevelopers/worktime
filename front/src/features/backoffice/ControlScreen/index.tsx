@@ -1,8 +1,8 @@
 import {useQuery} from "react-query";
 import {UserService} from "../../../services/user";
 import {IUser} from "../../../types/user";
-import {Trash, User, Clock, Airplane, FirstAidKit} from "@phosphor-icons/react";
-import {useNavigate} from 'react-router-dom';
+import {Trash, Pencil} from "@phosphor-icons/react";
+import {Outlet, useNavigate} from 'react-router-dom';
 
 const ControlScreen = () => {
     const navigate = useNavigate();
@@ -32,32 +32,11 @@ const ControlScreen = () => {
                             <p>{d.hireDate?.toString()}</p>|
                             <p>{d.monthlyWorkload}</p>
                             <button
-                                title="Controle de Horas"
+                                title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`journey/${d.id}`)}
+                                onClick={() => navigate(`/employee/${d.id}`)}
                             >
-                                <Clock size={20} />
-                            </button>
-                            <button
-                                title="Férias"
-                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`vacation/${d.id}`)}
-                            >
-                                <Airplane size={20} />
-                            </button>
-                            <button
-                                title="Exceções"
-                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`exception/${d.id}`)}
-                            >
-                                <FirstAidKit size={20} />
-                            </button>
-                            <button
-                                title="Editar Perfil"
-                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`/employee/edit/${d.id}`)}
-                            >
-                                <User size={20} />
+                                <Pencil size={20} />
                             </button>
                             {d.id !== 2 &&
                                 <button
