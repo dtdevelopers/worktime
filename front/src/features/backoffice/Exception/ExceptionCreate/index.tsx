@@ -1,7 +1,6 @@
 import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useForm} from "react-hook-form";
 import {useCallback} from "react";
 import ExceptionForm, { TFormException } from "../ExceptionForm/index";
 import { ExceptionService } from "../../../../services/exception";
@@ -18,18 +17,7 @@ const ExceptionCreate = () => {
         },
     });
 
-    const methods = useForm({
-        defaultValues: { 
-            description: '',
-            duration: 0,
-            durationType: '',
-            occurrenceDate: undefined,
-            idEmployee: 0,
-            fileId: ''
-        },
-    });
-
-    const handleCreateException = useCallback(async (values: TFormException) => {
+    const handleCreate = useCallback(async (values: TFormException) => {
         const { description, duration, durationType, occurrenceDate, idEmployee, fileId, isResolved } = values
         await ExceptionService.create({
             occurrenceDate,
@@ -51,10 +39,9 @@ const ExceptionCreate = () => {
             </span>
             <div>
                 <ExceptionForm 
-                    handleAction={handleCreateException}
+                    handleAction={handleCreate}
                     isLoading={isLoading}
-                    methods={methods}
-                    employees={data ?? []}
+                    employees={data}
                     durationTypes={[]}
                 />
             </div>

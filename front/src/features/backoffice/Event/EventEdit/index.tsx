@@ -1,7 +1,7 @@
 import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
-import {useCallback} from "react";
+import {useCallback, useMemo} from "react";
 import EventForm, { TFormEvent } from "../EventForm/index";
 import { useParams } from "react-router-dom";
 import { IEvent } from "../../../../types/event";
@@ -12,7 +12,6 @@ const EventEdit = () => {
 
     const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
-        initialData: [],
         onSuccess: (_data) => {
             console.log(_data);
         },
@@ -44,19 +43,28 @@ const EventEdit = () => {
         );
     }, [])
 
+    const renderForm = useMemo(() => {
+        if (event && employees) {
+            return (
+                <EventForm 
+                    handleAction={handleEdit}
+                    isLoading={isLoading}
+                    isEditing={true}
+                    initialData={{ ...event, idEmployee: event.user.id }}
+                    employees={employees}
+                />
+            )
+        }
+        return null
+    }, [employees, event, handleEdit, isLoading])
+
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
                 Editar Evento
             </span>
             <div>
-                {event && <EventForm 
-                    handleAction={handleEdit}
-                    isLoading={isLoading}
-                    isEditing={true}
-                    initialData={{ ...event, idEmployee: Number(id) }}
-                    employees={employees ?? []}
-                />}
+                {renderForm}
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import {toast} from "react-toastify";
 import {useQuery} from "react-query";
 import {UserService} from "../../../../services/user";
 import {useForm} from "react-hook-form";
-import {useCallback} from "react";
+import {useCallback, useMemo} from "react";
 import VacationForm, { TFormVacation } from "../VacationForm/index";
 import { useParams } from "react-router-dom";
 import {VacationService} from "../../../../services/vacation";
@@ -13,7 +13,6 @@ const VacationEdit = () => {
 
     const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
-        initialData: [],
         onSuccess: (_data) => {
             console.log(_data);
         },
@@ -36,7 +35,7 @@ const VacationEdit = () => {
         defaultValues: vacation as IVacation,
     });
 
-    const handleEditVacation = useCallback(async (values: TFormVacation) => {
+    const handleEdit = useCallback(async (values: TFormVacation) => {
         const { startDate, endDate, idEmployee } = values
         await VacationService.update(
             {
@@ -50,19 +49,28 @@ const VacationEdit = () => {
         toast.success('Férias atualizada com sucesso!');
     }, [])
 
+    const renderForm = useMemo(() => {
+        if (vacation && employees) {
+            return (
+                <VacationForm 
+                    handleAction={handleEdit}
+                    isLoading={isLoading}
+                    isEditing={true}
+                    methods={methods}
+                    employees={employees}
+                />
+            )
+        }
+        return null
+    }, [employees, handleEdit, isLoading, methods, vacation])
+
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
                 Editar Férias
             </span>
             <div>
-                <VacationForm 
-                    handleAction={handleEditVacation}
-                    isLoading={isLoading}
-                    isEditing={true}
-                    methods={methods}
-                    employees={employees ?? []}
-                />
+                {renderForm}
             </div>
         </div>
     );

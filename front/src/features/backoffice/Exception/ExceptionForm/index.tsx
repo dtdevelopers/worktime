@@ -1,5 +1,6 @@
 import {FormProvider} from "react-hook-form";
 import { IUser } from "../../../../types/user";
+import {useForm} from "react-hook-form";
 
 export type TFormException = {
     description: string;
@@ -15,17 +16,21 @@ const ExceptionForm = ({
     handleAction, 
     isLoading,
     isEditing = false,
-    methods,
+    initialData,
     employees,
     durationTypes
 }: {
     handleAction: (values: TFormException) => void, 
     isLoading: boolean,
     isEditing?: boolean,
-    methods: any,
+    initialData?: TFormException,
     employees: IUser[],
     durationTypes: any
 }) => {
+    const methods = useForm({
+        defaultValues: initialData as TFormException,
+    });
+
     return (
         <FormProvider {...methods}>
             <form
