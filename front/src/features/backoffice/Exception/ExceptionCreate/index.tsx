@@ -6,7 +6,7 @@ import ExceptionForm, { TFormException } from "../ExceptionForm/index";
 import { ExceptionService } from "../../../../services/exception";
 
 const ExceptionCreate = () => {
-    const { data, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
+    const { data: employees, isLoading } = useQuery(`employees-list`, () => UserService.findAll(), {
         refetchOnWindowFocus: false,
         initialData: [],
         onSuccess: (_data) => {
@@ -38,12 +38,12 @@ const ExceptionCreate = () => {
                 Cadastrar Nova Exceção
             </span>
             <div>
-                <ExceptionForm 
+                {employees && <ExceptionForm 
                     handleAction={handleCreate}
                     isLoading={isLoading}
-                    employees={data}
+                    employees={employees}
                     durationTypes={[]}
-                />
+                />}
             </div>
         </div>
     );

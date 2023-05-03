@@ -4,12 +4,12 @@ import {useForm} from "react-hook-form";
 
 export type TFormException = {
     description: string;
-    duration: number;
-    durationType: string;
-    occurrenceDate: Date;
-    idEmployee: number;
-    fileId: string;
-    isResolved: boolean;
+    duration?: number;
+    durationType?: string;
+    occurrenceDate?: Date;
+    idEmployee?: number;
+    fileId?: string;
+    isResolved?: boolean;
 }
 
 const ExceptionForm = ({ 
@@ -39,7 +39,6 @@ const ExceptionForm = ({
             >
                 <label>Funcionário:</label>
                 <select 
-                    name="idEmployee" 
                     {...methods.register('idEmployee')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
@@ -64,8 +63,7 @@ const ExceptionForm = ({
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 />
                 <label>Tipo de Duração:</label>
-                <select 
-                    name="durationType" 
+                <select
                     {...methods.register('durationType')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                 >
