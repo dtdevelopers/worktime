@@ -14,6 +14,15 @@ export class VacationService {
     return data as IVacation;
   }
 
+  static async findByUser(id: number): Promise<IVacation[]> {
+    const { data, ok } = await api
+        .get<IVacation[] | ErrorResponse>(`vacation/user/${id}`);
+    if (!ok) {
+      throw new Error((data as ErrorResponse).message);
+    }
+    return data as IVacation[];
+  }
+
   static async findAll(): Promise<IVacation[]> {
     const { data } = await api.get<IVacation[]>('vacation');
     return data as IVacation[];

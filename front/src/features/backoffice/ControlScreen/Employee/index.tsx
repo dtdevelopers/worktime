@@ -6,6 +6,7 @@ import { UserService } from "../../../../services/user";
 import { useCallback, useMemo, useState } from "react";
 import EmployeeForm, { TFormUser } from "../../Employee/EmployeeForm/index";
 import TabVacation from "./TabVacation/index";
+import TabException from "./TabException/index";
 
 const Employee = () => {
     const { id }: { id?: string } = useParams();
@@ -66,8 +67,8 @@ const Employee = () => {
             )
         }
         if (selectedTab === 'exception') {
-            return (
-                <div />
+            return (                
+                <TabException idEmployee={Number(id)} />
             )
         }
     },[id, selectedTab])
@@ -82,18 +83,21 @@ const Employee = () => {
             </div>
             <div>
                 <button 
+                    title="Jornada"
                     className="bg-primary text-gray-300 px-4 py-2 font-bold"
                     onClick={() => setSelectedTab('journey')}
                 >
                     Jornada
                 </button>
                 <button 
+                    title="Férias"
                     className="bg-primary text-gray-300 px-4 py-2 font-bold"
                     onClick={() => setSelectedTab('vacation')}
                 >
                     Férias
                 </button>
                 <button 
+                    title="Exceções"
                     className="bg-primary text-gray-300 px-4 py-2 font-bold"
                     onClick={() => setSelectedTab('exception')}
                 >

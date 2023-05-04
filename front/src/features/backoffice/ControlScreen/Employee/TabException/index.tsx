@@ -1,17 +1,17 @@
 import { toast } from "react-toastify";
 import { useQuery } from "react-query";
-import { IVacation } from "../../../../../types/vacation";
+import { IException } from "../../../../../types/exception";
 import { useNavigate } from 'react-router-dom';
 import { Pencil, Trash } from "@phosphor-icons/react";
-import { VacationService } from "../../../../../services/vacation";
+import { ExceptionService } from "../../../../../services/exception";
 import { useCallback, useMemo } from "react";
 
-const TabVacation = ({ idEmployee }: { idEmployee: number }) => {
+const TabException = ({ idEmployee }: { idEmployee: number }) => {
     const navigate = useNavigate();
 
-    const { data: vacations, refetch: refetchVacations} = useQuery(`vacation-${idEmployee}`, () => VacationService.findByUser(Number(idEmployee)), {
+    const { data: exceptions, refetch: refetchExceptions} = useQuery(`vacation-${idEmployee}`, () => ExceptionService.findByUser(Number(idEmployee)), {
         refetchOnWindowFocus: false,
-        onSuccess: (_data: IVacation[]) => {
+        onSuccess: (_data: IException[]) => {
             console.log(_data);
         },
         onError: (err: Error) => {
@@ -21,23 +21,26 @@ const TabVacation = ({ idEmployee }: { idEmployee: number }) => {
 
     const handleDelete = useCallback(async (id?: number) => {
         if (id) {
-            await VacationService.delete(id);
-            await refetchVacations();
+            await ExceptionService.delete(id);
+            await refetchExceptions();
         }
-    }, [refetchVacations])
+    }, [refetchExceptions])
 
     const renderTable = useMemo(() => {
-        if (vacations) {
+        if (exceptions) {
             return (
                 <div>
-                    {vacations?.map((d: IVacation) => (
+                     {exceptions?.map((d: IException) => (
                         <div key={d.id} className="flex gap-2">
-                            <p>{d.startDate?.toString()}</p>|
-                            <p>{d.endDate?.toString()}</p>|
+                            <p>{d.occurrenceDate?.toString()}</p>|
+                            <p>{d.duration}</p>|
+                            <p>{d.durationType}</p>|
+                            <p>{d.description}</p>|
+                            <p>{d.isResolved}</p>|
                             <button
                                 title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                                onClick={() => navigate(`vacation/edit/${d.id}`)}
+                                onClick={() => navigate(`exception/edit/${d.id}`)}
                             >
                                 <Pencil size={20} />
                             </button>
@@ -53,7 +56,7 @@ const TabVacation = ({ idEmployee }: { idEmployee: number }) => {
             )
         }
         return null
-    }, [handleDelete, navigate, vacations])
+    }, [handleDelete, navigate, exceptions])
 
 
     return (
@@ -61,7 +64,7 @@ const TabVacation = ({ idEmployee }: { idEmployee: number }) => {
             <button
                 title="Adicionar"
                 className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
-                onClick={() => navigate('vacation/create')}
+                onClick={() => navigate('exception/create')}
             >
                 Adicionar
             </button>
@@ -70,4 +73,4 @@ const TabVacation = ({ idEmployee }: { idEmployee: number }) => {
     );
 }
 
-export default TabVacation;
+export default TabException;

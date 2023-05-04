@@ -13,6 +13,15 @@ export class ExceptionService {
     return data as IException;
   }
 
+  static async findByUser(id: number): Promise<IException[]> {
+    const { data, ok } = await api
+        .get<IException[] | ErrorResponse>(`exception/user/${id}`);
+    if (!ok) {
+      throw new Error((data as ErrorResponse).message);
+    }
+    return data as IException[];
+  }
+
   static async findAll(): Promise<IException[]> {
     const { data } = await api.get<IException[]>('exception');
     return data as IException[];
