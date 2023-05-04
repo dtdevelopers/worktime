@@ -39,32 +39,50 @@ const EmployeeForm = ({
                 className='flex w-80 flex-col items-center justify-center'
                 onSubmit={methods.handleSubmit(handleAction)}
             >
+                <label>Nome:</label>
                 <input
                     {...methods.register('name')}
                     className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
                     placeholder='Inform your name'
                 />
-                <input
-                    {...methods.register('document')}
-                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
-                    placeholder='Inform your document'
-                />
-                <input
-                    type={'date'}
-                    {...methods.register('birthdate')}
-                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
-                />
-                <input
-                    type={'email'}
-                    {...methods.register('email')}
-                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
-                    placeholder='Inform your e-mail'
-                />
-                <input
-                    {...methods.register('phone')}
-                    className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
-                    placeholder='Inform your phone'
-                />
+                <div className="flex flex-row">
+                    <div>
+                        <label>Documento:</label>
+                        <input
+                            {...methods.register('document')}
+                            className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
+                            placeholder='Inform your document'
+                        />
+                    </div>
+                    <div>
+                        <label>Data de Nascimento:</label>
+                        <input
+                            type={'date'}
+                            {...methods.register('birthdate')}
+                            className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-row">
+                    <div>
+                        <label>E-mail:</label>
+                        <input
+                            type={'email'}
+                            {...methods.register('email')}
+                            className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
+                            placeholder='Inform your e-mail'
+                        />
+                    </div>
+                    <div>
+                        <label>Telefone:</label>
+                        <input
+                            {...methods.register('phone')}
+                            className='mt-12 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'
+                            placeholder='Inform your phone'
+                        />
+                    </div>
+                </div>
+                <label>Senha:</label>
                 <input
                     type={'password'}
                     className='mt-6 w-full rounded-md text-emphasis-medium dark:text-emphasisDark-medium bg-inverseDark-90 dark:bg-inverseLight-50 py-3 px-4 text-sm font-normal leading-5'

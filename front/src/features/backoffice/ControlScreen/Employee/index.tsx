@@ -1,15 +1,17 @@
-import {toast} from "react-toastify";
-import {useQuery} from "react-query";
-import {UserService} from "../../../../services/user";
-import {useParams} from "react-router-dom";
 import { IUser } from "../../../../types/user";
-import { useMemo, useState } from "react";
+import { toast } from "react-toastify";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { UserService } from "../../../../services/user";
+import { useCallback, useMemo, useState } from "react";
+import EmployeeForm, { TFormUser } from "../../Employee/EmployeeForm/index";
+import TabVacation from "./TabVacation/index";
 
 const Employee = () => {
     const { id }: { id?: string } = useParams();
     const [selectedTab, setSelectedTab] = useState('journey')
 
-    const { data: employee } = useQuery(
+    const { data: employee, isLoading } = useQuery(
         `user-${id}`,
         () => UserService.find(Number(id)), {
         refetchOnWindowFocus: false,
@@ -21,6 +23,37 @@ const Employee = () => {
         }
     });
 
+    const handleEdit = useCallback(async (values: TFormUser) => {
+        const { name, document, birthdate, email, phone, password, hireDate,  monthlyWorkload } = values
+        await UserService.update(
+            {
+                id: Number(id),
+                name,
+                document,
+                birthdate,
+                email,
+                phone,
+                hireDate,
+                monthlyWorkload,
+                password
+            }
+        );
+    }, [id])
+
+    const renderForm = useMemo(() => {
+        if (employee) {
+            return (
+                <EmployeeForm
+                    initialData={employee}
+                    handleAction={handleEdit}
+                    isLoading={isLoading}
+                    isEditing={true}
+                />
+            )
+        }
+        return null
+    }, [employee, handleEdit, isLoading])
+
     const renderTabContent = useMemo(() => {
         if (selectedTab === 'journey') {
             return (
@@ -29,7 +62,7 @@ const Employee = () => {
         }
         if (selectedTab === 'vacation') {
             return (
-                <div />
+                <TabVacation idEmployee={Number(id)} />
             )
         }
         if (selectedTab === 'exception') {
@@ -37,13 +70,16 @@ const Employee = () => {
                 <div />
             )
         }
-    },[selectedTab])
+    },[id, selectedTab])
 
     return (
         <div className="flex flex-col gap-2">
             <span className='text-md font-semibold leading-8 text-emphasis-medium dark:text-emphasisDark-medium'>
                 Controle de Funcionário
             </span>
+            <div>
+                {renderForm}
+            </div>
             <div>
                 <button 
                     className="bg-primary text-gray-300 px-4 py-2 font-bold"

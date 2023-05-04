@@ -1,8 +1,8 @@
-import {useQuery} from "react-query";
-import {UserService} from "../../../services/user";
-import {IUser} from "../../../types/user";
-import {Trash, Pencil} from "@phosphor-icons/react";
-import {Outlet, useNavigate} from 'react-router-dom';
+import { IUser } from "../../../types/user";
+import { useQuery } from "react-query";
+import { UserService } from "../../../services/user";
+import { useNavigate } from 'react-router-dom';
+import { Trash, Pencil } from "@phosphor-icons/react";
 
 const ControlScreen = () => {
     const navigate = useNavigate();

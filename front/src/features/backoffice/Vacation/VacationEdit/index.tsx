@@ -21,7 +21,7 @@ const VacationEdit = () => {
         }
     });
 
-    const { data: vacation } = useQuery(`event-${id}`, () => VacationService.find(Number(id)), {
+    const { data: vacation } = useQuery(`vacation-${id}`, () => VacationService.find(Number(id)), {
         refetchOnWindowFocus: false,
         onSuccess: (_data: IVacation) => {
             console.log(_data);
