@@ -9,6 +9,7 @@ import {IVacation} from "../../../types/vacation";
 import {EventService} from "../../../services/event";
 import {IEvent} from "../../../types/event";
 import {useNavigate} from 'react-router-dom';
+import { useMemo } from "react";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -29,6 +30,22 @@ const Home = () => {
         refetchOnWindowFocus: false,
         initialData: [],
     });
+
+    const journeys = useMemo(() => {
+        return [
+            {
+                dia: '23/05/2023',
+                entrada1: '00:00:00',
+                saida1: '00:00:00',
+                entrada2: null,
+                saida2: null,
+                horas_trabalhadas: '00:00:00',
+                horas_extras: '00:00:00',
+                horas_falta: '00:00:00',
+                is_consistente: false
+               }
+        ]
+    }, []) 
 
     const deleteEmployee = async (id?: number) => {
         if (id) {
@@ -170,6 +187,37 @@ const Home = () => {
                                 title="Editar"
                                 className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
                                 onClick={() => navigate(`event/edit/${d.id}`)}
+                            >
+                                <Pencil size={20} />
+                            </button>
+                            <button
+                                title="Excluir"
+                                onClick={() => {console.log(d.id)}}
+                            >
+                                <Trash size={20} />
+                            </button>
+                        </div>
+                    )
+                )}
+            </div>
+            <div className="flex flex-col my-6">
+                <h1>JORNADAS DE TRABALHO</h1>
+                <button
+                    title="Cadastrar"
+                    className="bg-primary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                    onClick={() => navigate('journey/create')}
+                >
+                    Cadastrar jornada
+                </button>
+                {journeys?.map((d: any) => (
+                        <div key={d.id} className="flex gap-2">
+                            <p>{d.name?.toString()}</p>|
+                            <p>{d.tolerance}</p>|
+                            <p>{d.worktime}</p>
+                            <button
+                                title="Editar"
+                                className="bg-secondary my-2 self-center px-4 py-2 rounded-md text-white font-bold"
+                                onClick={() => navigate(`journey/edit/${d.id}`)}
                             >
                                 <Pencil size={20} />
                             </button>

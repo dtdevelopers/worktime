@@ -7,6 +7,7 @@ import { useCallback, useMemo, useState } from "react";
 import EmployeeForm, { TFormUser } from "../../Employee/EmployeeForm/index";
 import TabVacation from "./TabVacation/index";
 import TabException from "./TabException/index";
+import TabWorkTime from "./TabWorkTime/index";
 
 const Employee = () => {
     const { id }: { id?: string } = useParams();
@@ -58,7 +59,7 @@ const Employee = () => {
     const renderTabContent = useMemo(() => {
         if (selectedTab === 'journey') {
             return (
-                <div />
+                <TabWorkTime />
             )
         }
         if (selectedTab === 'vacation') {

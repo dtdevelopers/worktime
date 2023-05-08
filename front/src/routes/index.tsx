@@ -16,6 +16,8 @@ import ExceptionCreate from '../features/backoffice/Exception/ExceptionCreate/in
 import ExceptionEdit from '../features/backoffice/Exception/ExceptionEdit/index';
 import ControlScreen from '../features/backoffice/ControlScreen/index';
 import Employee from '../features/backoffice/ControlScreen/Employee/index';
+import JourneyEdit from '../features/backoffice/Journey/JourneyEdit/index';
+import JourneyCreate from '../features/backoffice/Journey/JourneyCreate/index';
 
 export const queryClient = new QueryClient();
 
@@ -95,6 +97,16 @@ function Routes() {
                     key={'vacation-edit'}
                     path={'vacation/edit/:id'}
                     element={<VacationEdit />}
+                  />
+                  <Route
+                    key={'journey-create'}
+                    path={'journey/create'}
+                    element={<JourneyCreate />}
+                  />
+                  <Route
+                    key={'journey-edit'}
+                    path={'journey/edit/:id'}
+                    element={<JourneyEdit />}
                   />
                   <Route
                     key={'control-screen'}

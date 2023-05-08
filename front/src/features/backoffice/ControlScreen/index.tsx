@@ -22,7 +22,7 @@ const ControlScreen = () => {
     return (
         <div className="flex flex-col gap-2">
             <div className="flex flex-col my-6">
-                <h1>BLA</h1>
+                <h1>Controle</h1>
                 {employees?.filter((d: IUser) => d.isEmployee === true
                     ).map((d: IUser) => (
                         <div key={d.id} className="flex gap-2">
