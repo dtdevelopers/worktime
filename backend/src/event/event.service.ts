@@ -15,6 +15,10 @@ export class EventService {
     return await this.eventRepository.findAll(pagination);
   }
 
+  async findByUserWorkload(id: number): Promise<any> {
+    return await this.eventRepository.findByUserWorkload(id);
+  }
+
   async findByUser(id: number): Promise<Event[] | null> {
     return await this.eventRepository.findByUser(id);
   }

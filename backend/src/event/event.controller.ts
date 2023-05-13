@@ -30,6 +30,11 @@ export class EventController {
     return page.data;
   }
 
+  @Get('/get-workload')
+  async findByUserWorkload(): Promise<any> {
+    return await this.eventService.findByUserWorkload(0);
+  }
+
   @Get('/types')
   async getTypes(): Promise<string[] | null> {
     return await this.eventService.getTypes();

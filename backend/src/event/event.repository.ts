@@ -23,6 +23,51 @@ export class EventRepository extends Repository<Event> {
     return { data, total };
   }
 
+  public async findByUserWorkload(id: number): Promise<any> {
+    return [
+      {
+        userId: 2,
+        workload: 160,
+        worked: 150,
+        monthlyBalance: 10,
+        days: [
+          {
+            date: '2021-01-01',
+            balance: 0,
+            events: [
+              {
+                id: 1,
+                type: 'in',
+                date: '2021-01-01 08:00:00',
+              },
+              {
+                id: 2,
+                type: 'out',
+                date: '2021-01-01 08:00:00',
+              },
+            ],
+          },
+          {
+            date: '2021-01-02',
+            balance: -2,
+            events: [
+              {
+                id: 1,
+                type: 'in',
+                date: '2021-01-01 08:00:00',
+              },
+              {
+                id: 2,
+                type: 'out',
+                date: '2021-01-01 08:00:00',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  }
+
   public async findByUser(id: number): Promise<Event[] | null> {
     const query = this.createQueryBuilder('event').where(
       'event.user_id = :id',
